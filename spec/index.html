@@ -22,27 +22,38 @@ To solve this problem we want to extend Mozilla/Thunderbird that one can directl
 within the UI of the email client the messages and attachments into the Content Management System.
 </p>
 
+<p>
+This specification could be considered as part of OSR-101
+</p>
+
+<a name="configure-remote-server"/>
 <h3>Configuring the server(s) (CMS) within the email client (Mozilla/Thunderbird)</h3>
 <p>
+Clicking on the email account one receives a screen with a list of functionalities (Mozilla Mail).
+One should extend this list by adding an item "Configure Remote Servers" as a subitem of
+Advanced Features.
 </p>
 
 <h3>Saving/Moving/Copying an email message</h3>
 <p>
 Right click on an email message opens the context menu. Clicking on the menu items "Move To"
 or "Copy To" opens a submenu. This submenu should be extended by an additional submenu item
-"Remote Folders".
+"Remote Folders". TBD: Where shall these remote folders be configured???
 </p>
 
 <h3>Saving/Moving/Copying an attachment</h3>
 <p>
-Right click on an email message opens the context menu. Clicking on the menu items "Move To"
-or "Copy To" opens a submenu. This submenu should be extended by an additional submenu item
-"Remote Folders".
+Right click on an attachment opens the context menu. This menu should be extended by an additional menu item "Save to remote folder". Clicking on this new menu item should open a "Save Attachment Dialog to remote folder" which is similar to the existing dialog ("Save As ..."), but the folder information is being retrieved through XML/WebDAV from the remote server and also the remote server should be selectable (see <a href="#configure-remote-server">Configuration of remote server</a>).
 </p>
 
 <h3>Filters</h3>
 <p>
 TBD
+</p>
+
+<h3>Testing and Acceptance Procedure</h3>
+<p>
+Testing shall be done with an Apache Lenya instance provided by Wyona.
 </p>
 
 <h3>License</h3>
@@ -63,12 +74,12 @@ The individual developers and Wyona
 <h3>Timeline</h3>
 <h4>Milestone 1</h4>
 <p>
-TBD
+One Server instance (Apache Lenya)
 </p>
 
 <h4>Milestone 2</h4>
 <p>
-TBD
+TBD: Filters, Multiple Servers
 </p>
 
 Copyright &#169; Wyona 2006
