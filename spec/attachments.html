@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Specification: Mozilla(SeaMonkey)/Thunderbird extension for saving attachments to a CMS</title></head>
+<body>
+
+<h3>Saving/Moving/Copying an attachment</h3>
+
+<h4>Configuration of Remote Servers</h4>
+<pre>
+&lt;remote-servers>
+  &lt;server name="Wyona" introspection-url="http://wyona.com/introspection.xml"/>
+&lt;/remote-servers>
+</pre>
+
+<h4>Introspection File</h4>
+<pre>
+&lt;introspection>
+  &lt;attachments>http://wyona.com/save-attachements.xul&lt;/attachments>
+&lt;/introspection>
+</pre>
+
+<h4>XUL</h4>
+QUESTION: How can we pass the attachment file name into the XUL dialog: Define hook for filename!
+<pre>
+...
+</pre>
+
+<h4>Progress Bar</h4>
+...
+
+<h4>Confirmation/Exception Screen</h4>
+Define or find status XML (not XUL)
+</body>
+</html>

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>Specification: Mozilla/Thunderbird extension for saving emails and attachments to a CMS</title></head>
+<head><title>Specification: Mozilla(SeaMonkey)/Thunderbird extension for saving emails and attachments to a CMS</title></head>
 <body>
 
-<h2>Specification: Mozilla/Thunderbird extension for saving emails and attachments to a CMS</h2>
+<h2>Specification: Mozilla(SeaMonkey)/Thunderbird (NOTE: additional effort to support both) extension for saving emails and attachments to a CMS</h2>
 
 <h3>Description</h3>
 <p>
@@ -35,6 +35,7 @@ Advanced Features. TBD: And what then ...???
 </p>
 
 <h3>Saving/Moving/Copying an email message</h3>
+<p>NOTE: See alternatives at bottom of page</p>
 <p>
 Right click on an email message opens the context menu. Clicking on the menu items "Move To"
 or "Copy To" opens a submenu. This submenu should be extended by an additional submenu item
@@ -44,6 +45,7 @@ or "Copy To" opens a submenu. This submenu should be extended by an additional s
 <h3>Saving/Moving/Copying an attachment</h3>
 <p>
 Right click on an attachment opens the context menu. This menu should be extended by an additional menu item "Save to remote folder". Clicking on this new menu item should open a "Save Attachment Dialog to remote folder" which is similar to the existing dialog ("Save As ..."), but the folder information is being retrieved through XML/WebDAV from the remote server and also the remote server should be selectable (see <a href="#configure-remote-server">Configuration of remote server</a>).
+See <a href="attachments.html">here</a> for more details.
 </p>
 
 <h3>Filters</h3>
@@ -85,6 +87,15 @@ One Server instance (Apache Lenya)
 <h4>Milestone 2</h4>
 <p>
 TBD: Filters, Multiple Servers
+</p>
+
+<h4>Alternatives</h4>
+<p>
+<ul>
+<li>Shared IMAP folders</li>
+<li>Brockmail to feed CMS</li>
+<li>James als IMAP Server wrapping CMS (e.g. through RMI)</li>
+</ul>
 </p>
 
 Copyright &#169; Wyona 2006

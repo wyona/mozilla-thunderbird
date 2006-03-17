@@ -1,0 +1,13 @@
+   
+  REQUIREMENTS
+  ------------
+
+  Non-Functional:
+
+  - Coding Style: XML (2 spaces) Java/Javascript (4 Spaces), no tabs!
+  - Languages on Client: XUL and Javascript
+  - Code documentation: Up to Andreas
+  - i18n: English and German
+  - Tooltips/Documentation: Up to Andreas
+  - Installation: XPI
+  - Work Plan/Timeline: Beginning of April, ...
