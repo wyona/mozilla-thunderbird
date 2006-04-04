@@ -1,0 +1,3 @@
+Todo
+====
+ * Disable "Upload to CMS..." in context menu if no attachment is selected (but not "Upload All to CMS..."!)
