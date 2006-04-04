@@ -1,0 +1,3 @@
+content cmsconnector chrome/content/
+locale  cmsconnector en chrome/locale/en/
+overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://cmsconnector/content/cmsconnector.xul
