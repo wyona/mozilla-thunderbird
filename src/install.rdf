@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!--
+# ***** BEGIN LICENSE BLOCK *****
+# Copyright  2006 The Apache Software Foundation
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# ***** END LICENSE BLOCK *****
+-->
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>cmsconnector@wyona.com</em:id>
+    <em:version>0.1</em:version>
+    <em:type>2</em:type>
+   
+    <!-- Target application is Mozilla Thunderbird 1.5 --> 
+    <em:targetApplication>
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+        <em:minVersion>1.5.0</em:minVersion>
+        <em:maxVersion>1.5.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <!-- Extension information -->
+    <em:name>Wyona CMS Connector</em:name>
+    <em:description>Upload attachements including meta-data directly to your CMS.</em:description>
+    <em:creator>Andreas Wuest</em:creator>
+    <em:homepageURL>http://www.wyona.com/</em:homepageURL>
+    <em:optionsURL>chrome://cmsconnector/content/options.xul</em:optionsURL>
+    <em:iconURL>chrome://cmsconnector/skin/icon.png</em:iconURL>
+  </Description>      
+</RDF>
