@@ -24,14 +24,22 @@
 <!-- The default style of window is butt-ugly. Guess we need some css here. -->
 
 <window id="ui-nodeselector"
-	title="&nodeselectorWindowTitle.label;"
-	orient="horizontal"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	    title="&nodeselectorWindowTitle.label;"
+	    orient="vertical"
+        debug="true"
+	    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/x-javascript"
-	  src="chrome://cmsconnector/content/common.js"/>
+	      src="chrome://cmsconnector/content/common.js"/>
   <script type="application/x-javascript"
-	  src="chrome://cmsconnector/content/nodeselector.js"/>
-
-  <button id="cancel" label="&cancelCmd.label;"/>
-  <button id="ok" label="&okCmd.label;"/>
+	      src="chrome://cmsconnector/content/nodeselector.js"/>
+  <listbox>
+  </listbox>
+  <menulist>
+    <menupopu>
+    </menupopu>
+  </menulist>
+  <hbox>
+    <button id="cancel" label="&cancelCmd.label;"/>
+    <button id="ok" label="&okCmd.label;"/>
+  </hbox>
 </window>

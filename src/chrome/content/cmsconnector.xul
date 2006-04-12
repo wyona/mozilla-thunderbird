@@ -24,22 +24,22 @@
 <!DOCTYPE overlay SYSTEM "chrome://cmsconnector/locale/cmsconnector.dtd">
 
 <overlay id="cmsconnector"
-	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/x-javascript"
-	  src="chrome://cmsconnector/content/common.js"/>
+	      src="chrome://cmsconnector/content/common.js"/>
   <script type="application/x-javascript"
-	  src="chrome://cmsconnector/content/cmsconnector.js"/>
+	      src="chrome://cmsconnector/content/cmsconnector.js"/>
   <script type="application/x-javascript"
-	  src="chrome://cmsconnector/content/nodeselector.js"/>
+	      src="chrome://cmsconnector/content/nodeselector.js"/>
 
   <popup id="attachmentListContext">
     <menuitem id="context-uploadAttachmentToCMS"
-	      insertafter="context-saveAttachment"
-	      oncommand="uploadAttachmentToCMS()"
-	      label="&uploadAttachementToCMSCmd.label;"/>
+	          insertafter="context-saveAttachment"
+	          oncommand="uploadAttachmentToCMS()"
+	          label="&uploadAttachementToCMSCmd.label;"/>
     <menuitem id="context-uploadAllAttachmentsToCMS"
-	      insertafter="context-saveAllAttachments"
-	      oncommand="uploadAllAttachmentsToCMS()"
-	      label="&uploadAllAttachementsToCMSCmd.label;"/>
+	          insertafter="context-saveAllAttachments"
+	          oncommand="uploadAllAttachmentsToCMS()"
+	          label="&uploadAllAttachementsToCMSCmd.label;"/>
   </popup>
 </overlay>

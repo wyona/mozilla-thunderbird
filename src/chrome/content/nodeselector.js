@@ -22,7 +22,7 @@ const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 /**
  * Selects a Node on the CMS.
  *
- * @return void
+ * @return undefined
  * @throws CMSConnectorAbortException
  * @throws CMSConnectorExecutionException
  */
@@ -31,7 +31,7 @@ function selectNode() {
 
     // open nodeselector.xul window, query for node, and return it
     if (!window.openDialog(NODESELECTORXUL, "ui-nodeselector", ""))
-	throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
+        throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
 
     dump("selectNode(): window sucessfuly opened\n");
 }

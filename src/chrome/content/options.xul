@@ -25,12 +25,18 @@
 
 <!-- The default style of prefwindow is butt-ugly. Guess we need some css here. -->
 
-<prefwindow id="ui-cmsconnector-prefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <script type="application/x-javascript" src="chrome://cmsconnector/content/options.js"/>
+<prefwindow id="ui-cmsconnector-prefs"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript"
+          src="chrome://cmsconnector/content/options.js"/>
   <prefpane id="ui-saveoptions" label="CMS">
     <preferences>
-      <preference id="pref-introspectionsrc" name="cmsconnector.introsprectionsrc" type="string"/>
-      <preference id="pref-cmsuri" name="cmsconnector.cmsuri" type="string"/>
+      <preference id="pref-introspectionsrc"
+                  name="cmsconnector.introsprectionsrc"
+                  type="string"/>
+      <preference id="pref-cmsuri"
+                  name="cmsconnector.cmsuri"
+                  type="string"/>
     </preferences>
     <label control="ui-cmsuri" value="&cmsuri.label;:"/>
     <textbox id="ui-cmsuri" preference="pref-cmsuri"/>

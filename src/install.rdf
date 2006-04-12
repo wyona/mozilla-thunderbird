@@ -26,8 +26,8 @@
     <em:id>cmsconnector@wyona.com</em:id>
     <em:version>0.1</em:version>
     <em:type>2</em:type>
-   
-    <!-- Target application is Mozilla Thunderbird 1.5 --> 
+
+    <!-- Target application is Mozilla Thunderbird 1.5 -->
     <em:targetApplication>
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
@@ -35,7 +35,7 @@
         <em:maxVersion>1.5.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
-   
+
     <!-- Extension information -->
     <em:name>Wyona CMS Connector</em:name>
     <em:description>Upload attachements including meta-data directly to your CMS.</em:description>
@@ -43,5 +43,5 @@
     <em:homepageURL>http://www.wyona.com/</em:homepageURL>
     <em:optionsURL>chrome://cmsconnector/content/options.xul</em:optionsURL>
     <em:iconURL>chrome://cmsconnector/skin/icon.png</em:iconURL>
-  </Description>      
+  </Description>
 </RDF>
