@@ -27,7 +27,7 @@
  * render it implementation indepedendent.
  */
 
-const XMOZDELETEDMIMETYPE = 'text/x-moz-deleted'
+const XMOZDELETEDMIMETYPE = "text/x-moz-deleted"
 
 /* Registers our init code to be run (see
  * http://developer.mozilla.org/en/docs/Extension_FAQ#Why_doesn.27t_my_script_run_properly.3F) */
@@ -100,21 +100,24 @@ function uploadAttachmentToCMS() {
     for (var i = 0; i < attachmentList.selectedItems.length; i++)
         __filterDeletedAttachments(liveAttachments, attachmentList.selectedItems[i].attachment);
 
-    // maybe we need the same hack as in http://lxr.mozilla.org/mozilla/source/mail/base/content/msgHdrViewOverlay.js#1115
-    for (var i = 0; i < liveAttachments.length; i++) {
-        try {
-            __uploadAttachment(selectNode(), liveAttachments[i]);
-        } catch (exception) {
-            if (exception instanceof CMSConnectorExecutionException) {
-                dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
-                return;
-            }
-            else if (exception instanceof CMSConnectorAbortException) {
-                /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
-                return;
+    // check if there are any live attachments left to process
+    if (liveAttachments.length != 0) {
+        // maybe we need the same hack as in http://lxr.mozilla.org/mozilla/source/mail/base/content/msgHdrViewOverlay.js#1115
+        for (var i = 0; i < liveAttachments.length; i++) {
+            try {
+                __uploadAttachment(selectNode(), liveAttachments[i]);
+            } catch (exception) {
+                if (exception instanceof CMSConnectorExecutionException) {
+                    dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
+                    return;
+                }
+                else if (exception instanceof CMSConnectorAbortException) {
+                    /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
+                    return;
+                }
             }
         }
-    }
+    } else dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTORREPORTBUG + "\n")
 }
 
 /**
@@ -141,27 +144,30 @@ function uploadAllAttachmentsToCMS() {
     for (var i = 0; i < currentAttachments.length; i++)
         __filterDeletedAttachments(liveAttachments, currentAttachments[i]);
 
-    // upload all attachments to the same node
-    try {
-        CMSNode = selectNode();
-    } catch (exception) {
-        if (exception instanceof CMSConnectorExecutionException) {
-            dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
-            return;
+    // check if there are any live attachments left to process
+    if (liveAttachments.length != 0) {
+        // upload all attachments to the same node
+        try {
+            CMSNode = selectNode();
+        } catch (exception) {
+            if (exception instanceof CMSConnectorExecutionException) {
+                dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
+                return;
+            }
+            else if (exception instanceof CMSConnectorAbortException) {
+                /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
+                return;
+            }
         }
-        else if (exception instanceof CMSConnectorAbortException) {
-            /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
-            return;
-        }
-    }
 
-    /* Iteration over all live attachments is separated from the filtering above
-     * on purpose, because we want to be able to do asynchronous uploads. If uploading
-     * was done in the same step as the filtering, the upload must be synchronous,
-     * otherwise there is no guarantee that an attachment scheduled for upload
-     * still exists at the time the upload begins. */
-    for (var i = 0; i < liveAttachments.length; i++)
-        __uploadAttachment(CMSNode, liveAttachments[i]);
+        /* Iteration over all live attachments is separated from the filtering above
+         * on purpose, because we want to be able to do asynchronous uploads. If uploading
+         * was done in the same step as the filtering, the upload must be synchronous,
+         * otherwise there is no guarantee that an attachment scheduled for upload
+         * still exists at the time the upload begins. */
+        for (var i = 0; i < liveAttachments.length; i++)
+            __uploadAttachment(CMSNode, liveAttachments[i]);
+    } else dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTORREPORTBUG + "\n")
 }
 
 /**
