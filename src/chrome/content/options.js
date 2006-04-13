@@ -17,6 +17,12 @@
  * ***** END LICENSE BLOCK *****
  */
 
+/**
+ * @author Andreas Wuest
+ *
+ * This module contains code used in the preferences dialog.
+ */
+
 function SaySomething() {
     alert("Hello there!");
 }

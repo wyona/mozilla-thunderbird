@@ -17,6 +17,16 @@
  * ***** END LICENSE BLOCK *****
  */
 
+/**
+ * @author Andreas Wuest
+ *
+ * This module contains the glue code to dispatch the upload actions.
+ * <p>
+ * The code in this module serves to separate the internal Mozilla
+ * mail implementation from the rest of the CMSConnector code to
+ * render it implementation indepedendent.
+ */
+
 const XMOZDELETEDMIMETYPE = 'text/x-moz-deleted'
 
 /* Registers our init code to be run (see
@@ -30,7 +40,7 @@ window.addEventListener('load', initCMSConnector, false);
  * @return undefined
  */
 function initCMSConnector(aEvent) {
-    /* DEBUG */ dump("initCMSConnector() invoked\n");
+    /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
 
     document.getElementById('attachmentListContext').addEventListener('popupshowing', attachmentMenuListOnPopupShowingListener, false);
 }
@@ -38,15 +48,19 @@ function initCMSConnector(aEvent) {
 /**
  * Event handler for updating the context menu
  * depending on the state of the selected attachments.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal property
+ * document.getElementById('attachmentList').selectedItems[].attachment.
  *
  * @param  aEvent the event by which this handler is triggered
  * @return undefined
  */
 function attachmentMenuListOnPopupShowingListener(aEvent) {
-    /* DEBUG */ dump("attachmentMenuListOnPopupShowingListener() invoked\n");
+    /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
-    var uploadMenu          = document.getElementById('context-uploadAttachmentToCMS');
-    var attachmentList      = document.getElementById('attachmentList');
+    var uploadMenu     = document.getElementById('context-uploadAttachmentToCMS');
+    var attachmentList = document.getElementById('attachmentList');
 
     uploadMenu.setAttribute('disabled', 'true');
 
@@ -69,6 +83,10 @@ function attachmentMenuListOnPopupShowingListener(aEvent) {
  * <p>
  * Note that there must at least one attachment be selected which
  * is not marked as deleted.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal property
+ * document.getElementById('attachmentList').selectedItems[].attachment.
  *
  * @return undefined
  */
@@ -88,11 +106,11 @@ function uploadAttachmentToCMS() {
             __uploadAttachment(selectNode(), liveAttachments[i]);
         } catch (exception) {
             if (exception instanceof CMSConnectorExecutionException) {
-                dump("uploadAttachmentToCMS: " + exception.name + " - " + exception.message + "\n");
+                dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
                 return;
             }
             else if (exception instanceof CMSConnectorAbortException) {
-                /* DEBUG */ dump("uploadAttachmentToCMS: " + exception.name + " - " + exception.message + "\n");
+                /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
                 return;
             }
         }
@@ -104,7 +122,11 @@ function uploadAttachmentToCMS() {
  * context menu. Uploads all attachments of a given message
  * to the same node.
  * <p>
- * Note that currentAttachment and cloneAttachment() come from
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal global
+ * property currentAttachments.
+ * <p>
+ * currentAttachments is defined in
  * chrome://messenger/content/msgHdrViewOverlay.js.
  *
  * @return undefined
@@ -113,7 +135,7 @@ function uploadAllAttachmentsToCMS() {
     var CMSNode         = null;
     var liveAttachments = new Array();
 
-    /* DEBUG */ dump("uploadAllAttachmentsToCMS: currentAttachments \"" + currentAttachments + "\"\n");
+    /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: currentAttachments \"" + currentAttachments + "\"\n");
 
     // filter out attachments marked as deleted
     for (var i = 0; i < currentAttachments.length; i++)
@@ -124,11 +146,11 @@ function uploadAllAttachmentsToCMS() {
         CMSNode = selectNode();
     } catch (exception) {
         if (exception instanceof CMSConnectorExecutionException) {
-            dump("uploadAllAttachmentsToCMS: " + exception.name + " - " + exception.message + "\n");
+            dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
             return;
         }
         else if (exception instanceof CMSConnectorAbortException) {
-            /* DEBUG */ dump("uploadAllAttachmentsToCMS: " + exception.name + " - " + exception.message + "\n");
+            /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
             return;
         }
     }
@@ -152,16 +174,18 @@ function uploadAllAttachmentsToCMS() {
  * @throws CMSConnectorExecutionException
  */
 function __uploadAttachment(aCMSNode, aAttachment) {
-    alert("__uploadAttachment() invoked\n\n" +
+    alert("CMSConnector:cmsconnector.js:__uploadAttachment() invoked\n\n" +
+          "aAttachment.name: " + aAttachment.name + "\n" +
           "aAttachment.contentType: " + aAttachment.contentType + "\n" +
-          "aAttachment.url: " + aAttachment.url + "\n" +
-          "aAttachment.displayName: " + aAttachment.displayName + "\n" +
-          "aAttachment.messageUri: " + aAttachment.messageUri + "\n" +
-          "aAttachment.isExternalAttachment: " + aAttachment.isExternalAttachment);
+          "aAttachment.uri: " + aAttachment.uri);
 }
 
 /**
  * Filter out all attachments marked as deleted.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal attachment
+ * object.
  *
  * @param  aArray      the array into which accepted attachments should be stored
  * @param  aAttachment the attachment to test
@@ -169,5 +193,34 @@ function __uploadAttachment(aCMSNode, aAttachment) {
  */
 function __filterDeletedAttachments(aArray, aAttachment) {
     if (aAttachment.contentType != XMOZDELETEDMIMETYPE)
-        aArray.push(cloneAttachment(aAttachment));
+        aArray.push(__createAttachment(aAttachment));
+}
+
+
+/**
+ * Create a new object of type CMSConnector Attachment.
+ * This is not a performance penalty since the attachment
+ * needs to be cloned anyway.
+ * <p>
+ * The creation of a custom attachment object decouples
+ * further processing from Mozilla implementation details.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal attachment
+ * object.
+ *
+ * @param  aAttachment the attachment to clone
+ * @return Attachment  a newly created object of type Attachment
+ */
+function __createAttachment(aAttachment) {
+    /* The Mozilla internal aAttachment object contains the
+     * following properties:
+     *   aAttachment.contentType
+     *   aAttachment.url
+     *   aAttachment.displayName
+     *   aAttachment.messageUri
+     *   aAttachment.isExternalAttachment */
+    return new Attachment(aAttachment.displayName,
+                          aAttachment.contentType,
+                          aAttachment.url)
 }

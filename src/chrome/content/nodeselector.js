@@ -17,6 +17,12 @@
  * ***** END LICENSE BLOCK *****
  */
 
+/**
+ * @author Andreas Wuest
+ *
+ * This module contains the code used to select a node on the CMS.
+ */
+
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
 /**
@@ -27,11 +33,11 @@ const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
  * @throws CMSConnectorExecutionException
  */
 function selectNode() {
-    dump("selectNode() invoked\n");
+    /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
 
     // open nodeselector.xul window, query for node, and return it
     if (!window.openDialog(NODESELECTORXUL, "ui-nodeselector", ""))
         throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
 
-    dump("selectNode(): window sucessfuly opened\n");
+    /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
 }

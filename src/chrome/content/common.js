@@ -17,17 +17,53 @@
  * ***** END LICENSE BLOCK *****
  */
 
-function __CMSConnectorException(aMessage) {
-    this.message = aMessage;
-    this.name    = "CMSConnectorException"
+/**
+ * @author Andreas Wuest
+ *
+ * This module contains code common to all modules.
+ */
+
+/**
+ * Instantiates a new object of type Attachment.
+ *
+ * @param  aName        the name of the attachment
+ * @param  aContentType the mime type of the attachment
+ * @param  aUri         the location of the attachment
+ * @return undefined
+ */
+function Attachment(aName, aContentType, aUri) {
+    this.name        = aName;
+    this.contentType = aContentType;
+    this.uri         = aUri;
 }
 
+Attachment.prototype = {
+    name       : null,
+    contentType: null,
+    uri        : null
+}
+
+
+function __CMSConnectorException(aMessage) {
+    /* DEBUG */ dump("CMSConnector:common.js:__CMSConnectorException(" + aMessage + ") invoked.\n");
+    this.message = aMessage;
+    this.name    = "__CMSConnectorException"
+}
+
+__CMSConnectorException.prototype.__proto__  = Error.prototype;
+
 function CMSConnectorExecutionException(aMessage) {
-    __CMSConnectorException(aMessage);
+    /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorExecutionException(" + aMessage + ") invoked.\n");
+    __CMSConnectorException.call(this, aMessage);
     this.name = "CMSConnectorExecutionException";
 }
 
+CMSConnectorExecutionException.prototype.__proto__ = __CMSConnectorException.prototype;
+
 function CMSConnectorAbortException(aMessage) {
-    __CMSConnectorException(aMessage);
+    /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorAbortException(" + aMessage + ") invoked.\n");
+    __CMSConnectorException.call(this, aMessage);
     this.name = "CMSConnectorAbortException";
 }
+
+CMSConnectorAbortException.prototype.__proto__ = __CMSConnectorException.prototype;

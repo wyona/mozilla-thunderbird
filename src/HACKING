@@ -1,11 +1,14 @@
 Todo
 ====
  * cmsconnector.js:
-    * check what happens if all attachments of a given message are deleted (neither "Upload to CMS..." NOR "Upload All to CMS..." should be enabled). Compare with built-in "Save All".
-    + cmsconnector.js: disable "Upload to CMS..." in context menu if no attachment is selected (but not "Upload All to CMS..."!)
+    * disable "Upload All to CMS..." if all attachments are deleted/detached.
+    * what happens if multiple attachments are selected (cmd-click)
+    - check what happens if all attachments of a given message are deleted (neither "Upload to CMS..." NOR "Upload All to CMS..." should be enabled). Compare with built-in "Save All". -> TB crashes. Clearly, something we do not want to do with out extension menu item!
+    * what happens to external attachments?
+    - cmsconnector.js: disable "Upload to CMS..." in context menu if no attachment is selected (but not "Upload All to CMS..."!)
 
  * common.js:
-    * make exceptions inherit from built-in object Error.
+    - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
     * space below "Cancel" and "Upload" buttons must not flex.
