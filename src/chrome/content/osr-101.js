@@ -58,16 +58,17 @@ OSR101 = {
      * @return {Asset}  a new Asset object
      */
     Asset: function (aContent, aAssetType) {
-        // private attributes
+        // private instance attributes
         content   = aContent;
         assetType = aAssetType;
 
+        // privileged instance methods
         /**
          * Return the content URI.
          *
          * @return {String} the content URI
          */
-        get content() {
+        this.getContent() {
             return content;
         }
 
@@ -76,8 +77,33 @@ OSR101 = {
          *
          * @return {String} the asset type
          */
-        get assetType() {
+        this.getAssetType() {
             return assetType;
+        }
+    },
+
+    /**
+     * Capabilities constructor. Instantiates a new object of type Capabilities.
+     *
+     * @constructor
+     * @return {Capabilities} a new Capabilities object
+     */
+    Capabilities: function () {
+        // ...
+    }
+
+    Capabilities.prototype: {
+        // THE SPECIFICATION MUST FIRST BE WRITTEN FOR THIS PART
+        compatibility: function () {
+            // return compatibility level
+        },
+
+        queryFoo: function () {
+            // return capability status of operation Foo
+        },
+
+        queryBar: function () {
+            // return capability status of operation Bar
         }
     }
 }

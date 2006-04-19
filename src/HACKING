@@ -11,8 +11,20 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
+    * Note: nodeselector.xul is currently broken due to filepicker.xul import!
     * refactor suite file dialog.
     * space below "Cancel" and "Upload" buttons must not flex.
 
+ * osr-101.js:
+    * push completion of specification.
+    * implement specification.
+
+ * progressreporter.xul:
+    * refactor FF download progress dialog.
+
  * all files:
     * add copyright notice (javadoc- or GPL-style?).
+
+Notes
+=====
+ * The JavaScript source code is augmented with JSDoc comments (http://jsdoc.sourceforge.net/).
