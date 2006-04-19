@@ -26,12 +26,12 @@
 const CMSCONNECTORREPORTBUG = "Please report a defect on CMSConnector. Contact www.wyona.com and supply a description of the steps taken to trigger this message, as well as this message itself."
 
 /**
- * Instantiates a new object of type Attachment.
+ * Attachment constructor. Instantiates a new object of type Attachment.
  *
  * @param  aName        the name of the attachment
  * @param  aContentType the mime type of the attachment
  * @param  aUri         the location of the attachment
- * @return undefined
+ * @return Attachment
  */
 function Attachment(aName, aContentType, aUri) {
     this.name        = aName;
@@ -49,14 +49,15 @@ Attachment.prototype = {
 function __CMSConnectorException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:__CMSConnectorException(" + aMessage + ") invoked.\n");
     this.message = aMessage;
-    this.name    = "__CMSConnectorException"
+    this.name    = "__CMSConnectorException";
 }
 
 __CMSConnectorException.prototype.__proto__  = Error.prototype;
 
 function CMSConnectorExecutionException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorExecutionException(" + aMessage + ") invoked.\n");
-    __CMSConnectorException.call(this, aMessage);
+    // call super constructor
+    this.__proto__.__proto__.constructor.call(this, aMessage);
     this.name = "CMSConnectorExecutionException";
 }
 
@@ -64,7 +65,8 @@ CMSConnectorExecutionException.prototype.__proto__ = __CMSConnectorException.pro
 
 function CMSConnectorAbortException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorAbortException(" + aMessage + ") invoked.\n");
-    __CMSConnectorException.call(this, aMessage);
+    // call super constructor
+    this.__proto__.__proto__.constructor.call(this, aMessage);
     this.name = "CMSConnectorAbortException";
 }
 

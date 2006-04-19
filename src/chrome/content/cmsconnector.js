@@ -126,7 +126,7 @@ function uploadAttachmentToCMS() {
  * to the same node.
  * <p>
  * This function relies on Mozilla internal implementation
- * details because of referencing the internal global
+ * details because of referencing the internal global object
  * property currentAttachments.
  * <p>
  * currentAttachments is defined in
@@ -138,11 +138,11 @@ function uploadAllAttachmentsToCMS() {
     var CMSNode         = null;
     var liveAttachments = new Array();
 
-    /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: currentAttachments \"" + currentAttachments + "\"\n");
+    /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: self.currentAttachments \"" + self.currentAttachments + "\"\n");
 
     // filter out attachments marked as deleted
     for (var i = 0; i < currentAttachments.length; i++)
-        __filterDeletedAttachments(liveAttachments, currentAttachments[i]);
+        __filterDeletedAttachments(liveAttachments, self.currentAttachments[i]);
 
     // check if there are any live attachments left to process
     if (liveAttachments.length != 0) {
@@ -171,7 +171,7 @@ function uploadAllAttachmentsToCMS() {
 }
 
 /**
- * Uploads aAttachment to aCMSNode.
+ * Upload aAttachment to aCMSNode.
  *
  * @param  aCMSNode    the node where the attachment should be stored in the CMS
  * @param  aAttachment the attachment to upload

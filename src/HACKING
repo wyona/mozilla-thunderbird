@@ -11,4 +11,8 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
+    * refactor suite file dialog.
     * space below "Cancel" and "Upload" buttons must not flex.
+
+ * all files:
+    * add copyright notice (javadoc- or GPL-style?).

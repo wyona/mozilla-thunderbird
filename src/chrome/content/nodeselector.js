@@ -40,4 +40,6 @@ function selectNode() {
         throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
 
     /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
+
+    /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
 }

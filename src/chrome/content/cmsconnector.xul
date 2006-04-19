@@ -19,8 +19,6 @@
 # ***** END LICENSE BLOCK *****
 -->
 
-<?xml-stylesheet href="chrome://cmsconnector/content/bindings.css" type="text/css"?>
-
 <!DOCTYPE overlay SYSTEM "chrome://cmsconnector/locale/cmsconnector.dtd">
 
 <overlay id="cmsconnector"
