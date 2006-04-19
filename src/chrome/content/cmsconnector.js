@@ -36,8 +36,8 @@ window.addEventListener('load', initCMSConnector, false);
 /**
  * Event handler for setting up CMSConnector for active message instance.
  *
- * @param  aEvent the event by which this handler is triggered
- * @return undefined
+ * @param  {Object}    aEvent the event by which this handler is triggered
+ * @return {Undefined}
  */
 function initCMSConnector(aEvent) {
     /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
@@ -53,8 +53,8 @@ function initCMSConnector(aEvent) {
  * details because of referencing the internal property
  * document.getElementById('attachmentList').selectedItems[].attachment.
  *
- * @param  aEvent the event by which this handler is triggered
- * @return undefined
+ * @param  {Object}    aEvent the event by which this handler is triggered
+ * @return {Undefined}
  */
 function attachmentMenuListOnPopupShowingListener(aEvent) {
     /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
@@ -88,7 +88,7 @@ function attachmentMenuListOnPopupShowingListener(aEvent) {
  * details because of referencing the internal property
  * document.getElementById('attachmentList').selectedItems[].attachment.
  *
- * @return undefined
+ * @return {Undefined}
  */
 function uploadAttachmentToCMS() {
     var liveAttachments = new Array();
@@ -132,7 +132,7 @@ function uploadAttachmentToCMS() {
  * currentAttachments is defined in
  * chrome://messenger/content/msgHdrViewOverlay.js.
  *
- * @return undefined
+ * @return {Undefined}
  */
 function uploadAllAttachmentsToCMS() {
     var CMSNode         = null;
@@ -171,13 +171,14 @@ function uploadAllAttachmentsToCMS() {
 }
 
 /**
- * Upload aAttachment to aCMSNode.
+ * Upload an attachment to a specific node on the CMS.
  *
- * @param  aCMSNode    the node where the attachment should be stored in the CMS
- * @param  aAttachment the attachment to upload
- * @return undefined
- * @throws CMSConnectorAbortException
- * @throws CMSConnectorExecutionException
+ * @private
+ * @param  {Object}     aCMSNode    the node where the attachment should be stored in the CMS
+ * @param  {Attachment} aAttachment the attachment to upload
+ * @return {Undefined}
+ * @throws {Error}      CMSConnectorAbortException
+ * @throws {Error}      CMSConnectorExecutionException
  */
 function __uploadAttachment(aCMSNode, aAttachment) {
     alert("CMSConnector:cmsconnector.js:__uploadAttachment() invoked\n\n" +
@@ -193,9 +194,10 @@ function __uploadAttachment(aCMSNode, aAttachment) {
  * details because of referencing the internal attachment
  * object.
  *
- * @param  aArray      the array into which accepted attachments should be stored
- * @param  aAttachment the attachment to test
- * @return undefined
+ * @private
+ * @param  {Array}     aArray      the array into which accepted attachments should be stored
+ * @param  {Object}    aAttachment the attachment to test
+ * @return {Undefined}
  */
 function __filterDeletedAttachments(aArray, aAttachment) {
     if (aAttachment.contentType != XMOZDELETEDMIMETYPE)
@@ -215,8 +217,9 @@ function __filterDeletedAttachments(aArray, aAttachment) {
  * details because of referencing the internal attachment
  * object.
  *
- * @param  aAttachment the attachment to clone
- * @return Attachment  a newly created object of type Attachment
+ * @private
+ * @param  {Object}     aAttachment the attachment to clone
+ * @return {Attachment}             a newly created object of type Attachment
  */
 function __createAttachment(aAttachment) {
     /* The Mozilla internal aAttachment object contains the

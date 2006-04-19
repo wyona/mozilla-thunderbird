@@ -20,5 +20,5 @@
 /**
  * @author Andreas Wuest
  *
- * This module contains the logic of the progress reporter ui.
+ * This module contains the logic for the progress reporter ui.
  */

@@ -28,9 +28,9 @@ const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 /**
  * Selects a Node on the CMS.
  *
- * @return undefined
- * @throws CMSConnectorAbortException
- * @throws CMSConnectorExecutionException
+ * @return {Undefined}
+ * @throws {Error}     CMSConnectorAbortException
+ * @throws {Error}     CMSConnectorExecutionException
  */
 function selectNode() {
     /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");

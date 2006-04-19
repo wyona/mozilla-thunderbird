@@ -20,6 +20,64 @@
 /**
  * @author Andreas Wuest
  *
- * This module contains the code to communicate with CMS supporting
- * the OSR-101 specification.
+ * This module contains the code to communicate with a CMS
+ * supporting the OSR-101 specification (see
+ * http://www.wyona.org/osr-101/osr-101.xhtml).
  */
+
+// A new namespace. EXPERIMENTAL!
+OSR101 = {
+    /**
+     * Fetch introspection file.
+     *
+     * @param  {String}       aURI URI of CMS to query for introspection file
+     * @return {Capabilities} a Capabilities object
+     */
+    introspection: function (aURI) {
+        // ...
+    },
+
+    /**
+     * Save an asset at the indicated path on the server.
+     *
+     * @param  {Asset}     aAsset the asset to save
+     * @param  {String}    aPath  the location on the CMS where the asset should be saved
+     * @return {Undefined}
+     * @throws {Error}     OSR101TransactionException
+     */
+    save: function (aAsset, aPath) {
+        // ...
+    },
+
+    /**
+     * Asset constructor. Instantiates a new object of type Asset.
+     *
+     * @constructor
+     * @param  {String} aContent   an URI to the file where the content resides
+     * @param  {String} aAssetType the asset type of the asset
+     * @return {Asset}  a new Asset object
+     */
+    Asset: function (aContent, aAssetType) {
+        // private attributes
+        content   = aContent;
+        assetType = aAssetType;
+
+        /**
+         * Return the content URI.
+         *
+         * @return {String} the content URI
+         */
+        get content() {
+            return content;
+        }
+
+        /**
+         * Return the asset type.
+         *
+         * @return {String} the asset type
+         */
+        get assetType() {
+            return assetType;
+        }
+    }
+}

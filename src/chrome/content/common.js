@@ -28,10 +28,11 @@ const CMSCONNECTORREPORTBUG = "Please report a defect on CMSConnector. Contact w
 /**
  * Attachment constructor. Instantiates a new object of type Attachment.
  *
- * @param  aName        the name of the attachment
- * @param  aContentType the mime type of the attachment
- * @param  aUri         the location of the attachment
- * @return Attachment
+ * @constructor
+ * @param  {String}     aName        the name of the attachment
+ * @param  {String}     aContentType the mime type of the attachment
+ * @param  {String}     aUri         the location of the attachment
+ * @return {Attachment}
  */
 function Attachment(aName, aContentType, aUri) {
     this.name        = aName;
@@ -46,14 +47,31 @@ Attachment.prototype = {
 }
 
 
-function __CMSConnectorException(aMessage) {
+/**
+ * CMSConnectorException constructor. Instantiates a new object of
+ * type CMSConnectorException.
+ *
+ * @constructor
+ * @param  {String}                aMessage a descriptive error message
+ * @return {CMSConnectorException}
+ */
+function CMSConnectorException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:__CMSConnectorException(" + aMessage + ") invoked.\n");
     this.message = aMessage;
     this.name    = "__CMSConnectorException";
 }
 
-__CMSConnectorException.prototype.__proto__  = Error.prototype;
+CMSConnectorException.prototype.__proto__  = Error.prototype;
 
+
+/**
+ * CMSConnectorExecutionException constructor. Instantiates a new object of
+ * type CMSConnectorExecutionException.
+ *
+ * @constructor
+ * @param  {String}                         aMessage a descriptive error message
+ * @return {CMSConnectorExecutionException}
+ */
 function CMSConnectorExecutionException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorExecutionException(" + aMessage + ") invoked.\n");
     // call super constructor
@@ -63,6 +81,15 @@ function CMSConnectorExecutionException(aMessage) {
 
 CMSConnectorExecutionException.prototype.__proto__ = __CMSConnectorException.prototype;
 
+
+/**
+ * CMSConnectorAbortException constructor. Instantiates a new object of
+ * type CMSConnectorAbortException.
+ *
+ * @constructor
+ * @param  {String}                     aMessage a descriptive error message
+ * @return {CMSConnectorAbortException}
+ */
 function CMSConnectorAbortException(aMessage) {
     /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorAbortException(" + aMessage + ") invoked.\n");
     // call super constructor
