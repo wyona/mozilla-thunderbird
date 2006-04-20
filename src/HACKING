@@ -27,6 +27,11 @@ Todo
  * all files:
     * add copyright notice (javadoc- or GPL-style?).
 
+ * testing:
+    * test with Mozilla Suite 1.7.*
+    * test with Mozilla SeaMonkey 1.0.*
+
 Notes
 =====
  * The JavaScript source code is augmented with JSDoc comments (http://jsdoc.sourceforge.net/).
+ * !!nodeselector.xul is currently broken due to filepicker.xul import!!

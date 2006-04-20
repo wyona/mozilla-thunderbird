@@ -1,0 +1,25 @@
+INSTALL
+=======
+
+1. Developers:
+--------------
+
+During development, you can simply create a file named "cmsconnector@wyona.com" with the following content
+
+/path/to/the/cmsconnector/toplevel/source/directory
+
+and put it in the existing "extensions" directory inside your Thunderbird/SeaMonkey profile. Note that there is a sample "cmsconnector@wyona.com" file included in "public/mozilla-thunderbird/trunk/install/extensions" of your svn checkout.
+
+After having created the "cmsconnector@wyona.com" file, restart Thunderbird/SeaMonkey.
+
+Note that you might have to delete old "extensions.cache" and "extensions.ini" files lying around in your profile first. Otherwise, Mozilla may not notice the extension.
+
+Also note that if you changed the extension's "install.rdf" file, you need to "touch" the directory indicated in the "cmsconnector@wyona.com" file, in order to update its timestamp.
+
+After having started Thunderbird/SeaMonkey, select the Tools --> Extensions menu item. The CMSConnector should be listed in the opened dialog, alongside your other installed extensions.
+
+
+2. Deployers:
+-------------
+
+To deploy CMSConnector, create an XPI package starting from the package containing the install.rdf. You can then upload it to your central server, and distribute the URL of the package. This URL can then be used together with the Thunderbird/SeaMonkey Extension Manager to automatically install and update the package.
