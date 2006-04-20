@@ -18,6 +18,8 @@ Todo
  * osr-101.js:
     * push completion of specification.
     * implement specification.
+    * refactor stable implementation as a JavaScript XPCOM component.
+       * generate idl files.
 
  * progressreporter.xul:
     * refactor FF download progress dialog.
