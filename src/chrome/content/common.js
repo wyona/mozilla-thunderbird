@@ -79,7 +79,7 @@ function CMSConnectorExecutionException(aMessage) {
     this.name = "CMSConnectorExecutionException";
 }
 
-CMSConnectorExecutionException.prototype.__proto__ = __CMSConnectorException.prototype;
+CMSConnectorExecutionException.prototype.__proto__ = CMSConnectorException.prototype;
 
 
 /**
@@ -97,4 +97,4 @@ function CMSConnectorAbortException(aMessage) {
     this.name = "CMSConnectorAbortException";
 }
 
-CMSConnectorAbortException.prototype.__proto__ = __CMSConnectorException.prototype;
+CMSConnectorAbortException.prototype.__proto__ = CMSConnectorException.prototype;

@@ -41,5 +41,5 @@ function selectNode() {
 
     /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
 
-    /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
+    // /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
 }
