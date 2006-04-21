@@ -11,9 +11,13 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
-    * Note: nodeselector.xul is currently broken due to filepicker.xul import!
+    * add dlgbuttons.
+    * enquire about the generality of platform specific file pickers (i.e. if it is possible to change the back-end and reuse the native front-end). See http://developer.mozilla.org/en/docs/XUL_Tutorial:Open_and_Save_Dialogs.
     * refactor suite file dialog.
     * space below "Cancel" and "Upload" buttons must not flex.
+
+ * options.xul:
+    * use same scheme as in TB preferences dialog for grouping instead of <groupbox>
 
  * osr-101.js:
     * push completion of specification.
@@ -25,6 +29,8 @@ Todo
     * refactor FF download progress dialog.
 
  * all files:
+    * add "tabindex" attributes.
+    * add "accesskey" attributes.
     * add copyright notice (javadoc- or GPL-style?).
 
  * testing:
@@ -34,4 +40,3 @@ Todo
 Notes
 =====
  * The JavaScript source code is augmented with JSDoc comments (http://jsdoc.sourceforge.net/).
- * !!nodeselector.xul is currently broken due to filepicker.xul import!!

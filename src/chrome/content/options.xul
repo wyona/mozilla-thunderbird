@@ -23,24 +23,30 @@
 
 <!DOCTYPE window SYSTEM "chrome://cmsconnector/locale/options.dtd">
 
-<!-- For more information on prefwindow see http://www.xulplanet.com/references/elemref/ref_prefwindow.html. -->
+<!-- For more information on prefwindow see http://www.xulplanet.com/references/elemref/ref_prefwindow.html
+     and http://developer.mozilla.org/en/docs/Preferences_System:prefwindow. -->
 
-<prefwindow id="ui-cmsconnector-prefs"
+<prefwindow id="uiCMSConnectorPrefs"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            persist="screenX screenY width height">
+            persist="screenX screenY width height"
+            type="prefwindow"
+            title="&uiCMSConnectorPrefsPrefwindow.title;">
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/options.js"/>
-  <prefpane id="ui-saveoptions" label="CMS">
+  <prefpane id="uiSaveOptions" label="&uiSaveOptions.label;" equalsize="always">
     <preferences>
-      <preference id="pref-introspectionsrc"
-                  name="extensions.cmsconnector.introsprectionsrc"
-                  type="string"/>
-      <preference id="pref-cmsuri"
-                  name="extensions.cmsconnector.cmsuri"
-                  type="string"/>
+      <preference id="prefIntrospectionSrc" name="extensions.cmsconnector.introsprectionsrc" type="string"/>
+      <preference id="prefCMSURI" name="extensions.cmsconnector.cmsuri" type="string"/>
     </preferences>
-    <label control="ui-cmsuri" value="&cmsuri.label;:"/>
-    <textbox id="ui-cmsuri" preference="pref-cmsuri"/>
-    <button label="Say Hello" oncommand="SaySomething()"/>
+    <groupbox>
+      <caption label="&uiCMSCaption.label;"/>
+      <menulist id="uiCMSMenuList" flex="1" crop="end" accesskey="&uiCMSMenuList.accesskey;">
+        <menupopup id="uiCMSMenu"/>
+      </menulist>
+      <hbox align="center" equalsize="always">
+        <button id="uiAddCMSButton" label="&uiAddCMSButton.label;"/>
+        <button id="uiRemoveCMSButton" label="&uiRemoveCMSButton.label;"/>
+      </hbox>
+    </groupbox>
   </prefpane>
 </prefwindow>

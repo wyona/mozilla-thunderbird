@@ -105,7 +105,7 @@ function uploadAttachmentToCMS() {
         // maybe we need the same hack as in http://lxr.mozilla.org/mozilla/source/mail/base/content/msgHdrViewOverlay.js#1115
         for (var i = 0; i < liveAttachments.length; i++) {
             try {
-                __uploadAttachment(selectNode(), liveAttachments[i]);
+                __uploadAttachment(NodeSelector.selectNode(), liveAttachments[i]);
             } catch (exception) {
                 if (exception instanceof CMSConnectorExecutionException) {
                     dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
@@ -148,7 +148,7 @@ function uploadAllAttachmentsToCMS() {
     if (liveAttachments.length != 0) {
         // upload all attachments to the same node
         try {
-            CMSNode = selectNode();
+            CMSNode = NodeSelector.selectNode();
         } catch (exception) {
             if (exception instanceof CMSConnectorExecutionException) {
                 dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");

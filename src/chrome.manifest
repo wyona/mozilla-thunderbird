@@ -1,3 +1,4 @@
-content cmsconnector chrome/content/
-locale  cmsconnector en chrome/locale/en/
+content cmsconnector           chrome/content/
+locale  cmsconnector en        chrome/locale/en/
+skin    cmsconnector pinstripe chrome/skin/
 overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://cmsconnector/content/cmsconnector.xul

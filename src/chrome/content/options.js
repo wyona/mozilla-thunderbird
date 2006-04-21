@@ -23,6 +23,8 @@
  * This module contains code used in the preferences dialog.
  */
 
-function SaySomething() {
-    alert("Hello there!");
+var Options = {
+    saySomething: function () {
+        alert("Hello there!");
+    }
 }

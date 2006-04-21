@@ -58,6 +58,6 @@
     <em:creator>Andreas Wuest</em:creator>
     <em:homepageURL>http://www.wyona.com/</em:homepageURL>
     <em:optionsURL>chrome://cmsconnector/content/options.xul</em:optionsURL>
-    <em:iconURL>chrome://cmsconnector/skin/icon.png</em:iconURL>
+    <!--<em:iconURL>chrome://cmsconnector/skin/icon.png</em:iconURL>-->
   </Description>
 </RDF>

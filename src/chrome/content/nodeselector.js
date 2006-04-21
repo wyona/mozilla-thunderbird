@@ -25,21 +25,41 @@
 
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
-/**
- * Selects a Node on the CMS.
- *
- * @return {Undefined}
- * @throws {Error}     CMSConnectorAbortException
- * @throws {Error}     CMSConnectorExecutionException
- */
-function selectNode() {
-    /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
+var NodeSelector = {
+    cmsURI: null,
 
-    // open nodeselector.xul window, query for node, and return it
-    if (!window.openDialog(NODESELECTORXUL, "ui-nodeselector", ""))
-        throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
+    /**
+     * Selects a Node on the CMS.
+     *
+     * @param  {String}    aCMSURI                        the URI of the target CMS
+     * @return {Undefined}
+     * @throws {Error}     CMSConnectorAbortException
+     * @throws {Error}     CMSConnectorExecutionException
+     */
+    selectNode: function (aCMSURI) {
+        NodeSelector.cmsURI = aCMSURI;
 
-    /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
 
-    // /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
+        // open nodeselector.xul window, query for node, and return it
+        if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', ''))
+            throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
+
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
+
+        // /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
+    },
+
+    nodeSelectorLoad: function (aEvent) {
+        var cmsName            = null;
+        var nodeSelectorDialog = null;
+        // query the CMS server (introspection)
+
+        // get CMS name
+        cmsName = "";
+
+        // set window title
+        nodeSelectorDialog = document.getElementById('ui-nodeselector');
+        nodeSelectorDialog.setAttribute('title', nodeSelectorDialog.getAttribute('title') + cmsName);
+    }
 }

@@ -1,1 +1,10 @@
-<!ENTITY cmsuri.label "CMS URI">
+<!ENTITY uiCMSConnectorPrefsPrefwindow.title "Wyona CMSConnector Preferences">
+
+<!ENTITY uiSaveOptions.label "CMS">
+<!ENTITY uiCMSCaption.label "Default CMS">
+<!ENTITY uiAddCMSButton.label "Add CMS">
+<!ENTITY uiRemoveCMSButton.label "Remove CMS">
+
+<!ENTITY uiCMSMenuList.accesskey "c">
+<!ENTITY uiAddCMSButton.accesskey "a">
+<!ENTITY uiRemoveCMSButton.accesskey "r">
