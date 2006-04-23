@@ -111,8 +111,6 @@
   </grid>
 
   <hbox class="dialog-button-box" align="center">
-    <checkbox label="&showHiddenFiles.label;" oncommand="toggleShowHidden();"
-              flex="1" align="left"  accesskey="&showHiddenFiles.accesskey;"/>
     <button dlgtype="cancel" icon="cancel" class="dialog-button"/>
     <button dlgtype="accept" icon="accept" class="dialog-button"/>
   </hbox>

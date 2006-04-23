@@ -23,7 +23,7 @@
  * This module contains code common to all modules.
  */
 
-const CMSCONNECTORREPORTBUG = "Please report a defect on CMSConnector. Contact www.wyona.com and supply a description of the steps taken to trigger this message, as well as this message itself."
+const CMSCONNECTOR_REPORT_BUG = "Please report a defect on CMSConnector. Contact www.wyona.com and supply a description of the steps taken to trigger this message, as well as this message itself."
 
 /**
  * Attachment constructor. Instantiates a new object of type Attachment.

@@ -1,23 +1,33 @@
 Todo
 ====
  * cmsconnector.js:
-    * disable "Upload All to CMS..." if all attachments are deleted/detached.
+    * disable "Upload All to CMS..." if all attachments are
+      deleted/detached.
     * what happens if multiple attachments are selected (cmd-click)
-    - check what happens if all attachments of a given message are deleted (neither "Upload to CMS..." NOR "Upload All to CMS..." should be enabled). Compare with built-in "Save All". -> TB crashes. Clearly, something we do not want to do with out extension menu item!
+    - check what happens if all attachments of a given message are
+      deleted (neither "Upload to CMS..." NOR "Upload All to CMS..."
+      should be enabled). Compare with built-in "Save All". -> TB
+      crashes. Clearly, something we do not want to do with out
+      extension menu item!
     * what happens to external attachments?
-    - cmsconnector.js: disable "Upload to CMS..." in context menu if no attachment is selected (but not "Upload All to CMS..."!)
+    - cmsconnector.js: disable "Upload to CMS..." in context menu if
+      no attachment is selected (but not "Upload All to CMS..."!)
 
  * common.js:
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
     * add dlgbuttons.
-    * enquire about the generality of platform specific file pickers (i.e. if it is possible to change the back-end and reuse the native front-end). See http://developer.mozilla.org/en/docs/XUL_Tutorial:Open_and_Save_Dialogs.
+    * enquire about the generality of platform specific file pickers
+      (i.e. if it is possible to change the back-end and reuse the
+      native front-end). See
+      http://developer.mozilla.org/en/docs/XUL_Tutorial:Open_and_Save_Dialogs.
     * refactor suite file dialog.
     * space below "Cancel" and "Upload" buttons must not flex.
 
  * options.xul:
-    * use same scheme as in TB preferences dialog for grouping instead of <groupbox>
+    * use same scheme as in TB preferences dialog for grouping instead
+      of <groupbox>
 
  * osr-101.js:
     * push completion of specification.
@@ -40,3 +50,4 @@ Todo
 Notes
 =====
  * The JavaScript source code is augmented with JSDoc comments (http://jsdoc.sourceforge.net/).
+ * For coding style information, please see http://www.mozilla.org/hacking/mozilla-style-guide.html.

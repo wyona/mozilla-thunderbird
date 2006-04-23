@@ -27,7 +27,7 @@
  * render it implementation indepedendent.
  */
 
-const XMOZDELETEDMIMETYPE = "text/x-moz-deleted"
+const XMOZ_DELETED_MIME_TYPE = "text/x-moz-deleted"
 
 /* Registers our init code to be run (see
  * http://developer.mozilla.org/en/docs/Extension_FAQ#Why_doesn.27t_my_script_run_properly.3F) */
@@ -68,7 +68,7 @@ function attachmentMenuListOnPopupShowingListener(aEvent) {
      * yes, check if there is at least one attachment in the selection
      * which is eligible for upload (i.e. not marked as deleted). */
     for (var i = 0; i < attachmentList.selectedItems.length; i++) {
-        if (attachmentList.selectedItems[i].attachment.contentType != XMOZDELETEDMIMETYPE) {
+        if (attachmentList.selectedItems[i].attachment.contentType != XMOZ_DELETED_MIME_TYPE) {
             uploadMenu.removeAttribute('disabled');
             break;
         }
@@ -117,7 +117,7 @@ function uploadAttachmentToCMS() {
                 }
             }
         }
-    } else dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTORREPORTBUG + "\n")
+    } else dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTOR_REPORT_BUG + "\n")
 }
 
 /**
@@ -167,7 +167,7 @@ function uploadAllAttachmentsToCMS() {
          * still exists at the time the upload begins. */
         for (var i = 0; i < liveAttachments.length; i++)
             __uploadAttachment(CMSNode, liveAttachments[i]);
-    } else dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTORREPORTBUG + "\n")
+    } else dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: No attachments to upload. This condition should never occur. " + CMSCONNECTOR_REPORT_BUG + "\n")
 }
 
 /**
@@ -200,7 +200,7 @@ function __uploadAttachment(aCMSNode, aAttachment) {
  * @return {Undefined}
  */
 function __filterDeletedAttachments(aArray, aAttachment) {
-    if (aAttachment.contentType != XMOZDELETEDMIMETYPE)
+    if (aAttachment.contentType != XMOZ_DELETED_MIME_TYPE)
         aArray.push(__createAttachment(aAttachment));
 }
 

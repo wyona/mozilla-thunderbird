@@ -26,7 +26,7 @@
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
 var NodeSelector = {
-    cmsURI: null,
+    sCMSURI: null,
 
     /**
      * Selects a Node on the CMS.
@@ -37,7 +37,7 @@ var NodeSelector = {
      * @throws {Error}     CMSConnectorExecutionException
      */
     selectNode: function (aCMSURI) {
-        NodeSelector.cmsURI = aCMSURI;
+        NodeSelector.sCMSURI = aCMSURI;
 
         /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
 
@@ -53,6 +53,7 @@ var NodeSelector = {
     nodeSelectorLoad: function (aEvent) {
         var cmsName            = null;
         var nodeSelectorDialog = null;
+
         // query the CMS server (introspection)
 
         // get CMS name
