@@ -36,10 +36,9 @@ window.addEventListener('load', initCMSConnector, false);
 /**
  * Event handler for setting up CMSConnector for active message instance.
  *
- * @param  {Object}    aEvent the event by which this handler is triggered
  * @return {Undefined}
  */
-function initCMSConnector(aEvent) {
+function initCMSConnector() {
     // /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
 
     document.getElementById('attachmentListContext').addEventListener('popupshowing', attachmentMenuListOnPopupShowingListener, false);
@@ -53,10 +52,9 @@ function initCMSConnector(aEvent) {
  * details because of referencing the internal property
  * document.getElementById('attachmentList').selectedItems[].attachment.
  *
- * @param  {Object}    aEvent the event by which this handler is triggered
  * @return {Undefined}
  */
-function attachmentMenuListOnPopupShowingListener(aEvent) {
+function attachmentMenuListOnPopupShowingListener() {
     // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
     var uploadMenu     = document.getElementById('context-uploadAttachmentToCMS');
@@ -105,7 +103,7 @@ function uploadAttachmentToCMS() {
         // maybe we need the same hack as in http://lxr.mozilla.org/mozilla/source/mail/base/content/msgHdrViewOverlay.js#1115
         for (var i = 0; i < liveAttachments.length; i++) {
             try {
-                __uploadAttachment(NodeSelector.selectNode("test"), liveAttachments[i]);
+                __uploadAttachment(NodeSelector.selectNode(), liveAttachments[i]);
             } catch (exception) {
                 if (exception instanceof CMSConnectorAbortException) {
                     /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");

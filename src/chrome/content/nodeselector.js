@@ -25,6 +25,13 @@
 
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
+/**
+ * NodeSelector constructor. Instantiates a new object of type NodeSelector.
+ *
+ * @constructor
+ * @param  {String}       aCMSURI the URI of the target CMS
+ * @return {NodeSelector}
+ */
 function NodeSelector(aCMSURI) {
     this.cmsURI       = aCMSURI;
     this.selectedNode = null;
@@ -35,7 +42,7 @@ function NodeSelector(aCMSURI) {
  * Selects a Node on the CMS.
  *
  * @param  {String}    aCMSURI                        the URI of the target CMS
- * @return {Undefined}
+ * @return {CMSNode}                                  the node selected by the user
  * @throws {Error}     CMSConnectorAbortException
  * @throws {Error}     CMSConnectorExecutionException
  */
@@ -47,12 +54,9 @@ NodeSelector.selectNode = function (aCMSURI) {
     var nodeSelector = new NodeSelector(aCMSURI);
 
     /* Open nodeselector.xul window. Note that the mode is
-     * modal, which means that the openDialog() call blocks.
-     * The results of the interactions with the dialog have
-     * to be stored in static variables via the various
-     * callback functions. */
+     * modal, which means that the openDialog() call blocks. */
     if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', 'modal', nodeSelector))
-        throw new CMSConnectorExecutionException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Unable to open window " + NODESELECTORXUL);
+        throw new CMSConnectorExecutionException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Unable to open window \"" + NODESELECTORXUL + "\"");
 
     if (!nodeSelector.returnStatus)
         throw new CMSConnectorAbortException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Node selection cancelled by user");
@@ -60,7 +64,14 @@ NodeSelector.selectNode = function (aCMSURI) {
     return nodeSelector.selectedNode;
 }
 
-NodeSelector.nodeSelectorLoad = function (aEvent) {
+/**
+ * Event handler for setting up the node selector.
+ * <p>
+ * Call after the dialog window has finished loading.
+ *
+ * @return {Undefined}
+ */
+NodeSelector.nodeSelectorLoad = function () {
     var cmsName            = null;
     var nodeSelectorDialog = null;
 
@@ -74,18 +85,32 @@ NodeSelector.nodeSelectorLoad = function (aEvent) {
     nodeSelectorDialog.setAttribute('title', nodeSelectorDialog.getAttribute('title') + cmsName);
 }
 
+/**
+ * Event handler for handling dialog cancel requests.
+ *
+ * @return {Boolean}
+ */
 NodeSelector.onDialogCancel = function () {
     /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel() invoked\n");
 
-    var nodeSelector = window.arguments[0];
-    nodeSelector.returnStatus = false;
+    // set the returnStatus property of the passed in NodeSelector object
+    window.arguments[0].returnStatus = false;
+
+    // return true so that the dialog can get closed
     return true;
 }
 
+/**
+ * Event handler for handling dialog accept requests.
+ *
+ * @return {Boolean}
+ */
 NodeSelector.onDialogAccept =function () {
     /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept() invoked\n");
 
-    var nodeSelector = window.arguments[0];
-    nodeSelector.returnStatus = true;
+    // set the returnStatus property of the passed in NodeSelector object
+    window.arguments[0].returnStatus = true;
+
+    // return true so that the dialog can get closed
     return true;
 }

@@ -17,6 +17,7 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
+    * persist previous node selection.
     - enquire about the generality of platform specific file pickers
       (i.e. if it is possible to change the back-end and reuse the
       native front-end). See
