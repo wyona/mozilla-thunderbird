@@ -17,17 +17,15 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
-    * add dlgbuttons.
-    * enquire about the generality of platform specific file pickers
+    - enquire about the generality of platform specific file pickers
       (i.e. if it is possible to change the back-end and reuse the
       native front-end). See
       http://developer.mozilla.org/en/docs/XUL_Tutorial:Open_and_Save_Dialogs.
-    * refactor suite file dialog.
-    * space below "Cancel" and "Upload" buttons must not flex.
+    - refactor suite file dialog.
 
  * options.xul:
     * use same scheme as in TB preferences dialog for grouping instead
-      of <groupbox>
+      of <groupbox>.
 
  * osr-101.js:
     * push completion of specification.
@@ -44,8 +42,8 @@ Todo
     * add copyright notice (javadoc- or GPL-style?).
 
  * testing:
-    * test with Mozilla Suite 1.7.*
-    * test with Mozilla SeaMonkey 1.0.*
+    * test with Mozilla Suite 1.7.*.
+    * test with Mozilla SeaMonkey 1.0.*.
 
 Notes
 =====

@@ -25,73 +25,67 @@
 
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
-var sCMSURI       = null;
-var sSelectedNode = null;
-var sReturnStatus = null;
-
-function NodeSelector() {
+function NodeSelector(aCMSURI) {
+    this.cmsURI       = aCMSURI;
+    this.selectedNode = null;
+    this.returnStatus = null;
 }
 
-NodeSelector = {
-    // public static methods
-    /**
-     * Selects a Node on the CMS.
-     *
-     * @param  {String}    aCMSURI                        the URI of the target CMS
-     * @return {Undefined}
-     * @throws {Error}     CMSConnectorAbortException
-     * @throws {Error}     CMSConnectorExecutionException
-     */
-    selectNode : function (aCMSURI) {
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
-        NodeSelector.sCMSURI = aCMSURI;
-        return NodeSelector.nodeSelectorDialog();
-    },
+/**
+ * Selects a Node on the CMS.
+ *
+ * @param  {String}    aCMSURI                        the URI of the target CMS
+ * @return {Undefined}
+ * @throws {Error}     CMSConnectorAbortException
+ * @throws {Error}     CMSConnectorExecutionException
+ */
+NodeSelector.selectNode = function (aCMSURI) {
+    /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
 
-    nodeSelectorDialog : function () {
-        /* Open nodeselector.xul window. Note that the mode is
-         * modal, which means that the openDialog() call blocks.
-         * The results of the interactions with the dialog have
-         * to be stored in static variables via the various
-         * callback functions. */
-        if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', 'modal'))
-            throw new CMSConnectorExecutionException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Unable to open window " + NODESELECTORXUL);
+    /* NodeSelector instance is passed to the newly opened dialog
+     * and acts as a container for in and out parameters. */
+    var nodeSelector = new NodeSelector(aCMSURI);
 
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): back from the dialog.\n");
+    /* Open nodeselector.xul window. Note that the mode is
+     * modal, which means that the openDialog() call blocks.
+     * The results of the interactions with the dialog have
+     * to be stored in static variables via the various
+     * callback functions. */
+    if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', 'modal', nodeSelector))
+        throw new CMSConnectorExecutionException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Unable to open window " + NODESELECTORXUL);
 
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): sReturnStatus: \"" + sReturnStatus + "\"\n");
+    if (!nodeSelector.returnStatus)
+        throw new CMSConnectorAbortException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Node selection cancelled by user");
 
-        if (!sReturnStatus)
-            throw new CMSConnectorAbortException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Selection aborted");
+    return nodeSelector.selectedNode;
+}
 
-        return sSelectedNode;
-    },
+NodeSelector.nodeSelectorLoad = function (aEvent) {
+    var cmsName            = null;
+    var nodeSelectorDialog = null;
 
-    onDialogCancel : function () {
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel() invoked\n");
-        sReturnStatus = false;
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel(): return status set.\n");
-        return true;
-    },
+    // query the CMS server (introspection)
 
-    onDialogAccept : function () {
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept() invoked\n");
-        self.sReturnStatus = true;
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept(): return status set.\n");
-        return true;
-    },
+    // get CMS name
+    cmsName = "";
 
-    nodeSelectorLoad : function (aEvent) {
-        var cmsName            = null;
-        var nodeSelectorDialog = null;
+    // set window title
+    nodeSelectorDialog = document.getElementById('ui-nodeselector');
+    nodeSelectorDialog.setAttribute('title', nodeSelectorDialog.getAttribute('title') + cmsName);
+}
 
-        // query the CMS server (introspection)
+NodeSelector.onDialogCancel = function () {
+    /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel() invoked\n");
 
-        // get CMS name
-        cmsName = "";
+    var nodeSelector = window.arguments[0];
+    nodeSelector.returnStatus = false;
+    return true;
+}
 
-        // set window title
-        nodeSelectorDialog = document.getElementById('ui-nodeselector');
-        nodeSelectorDialog.setAttribute('title', nodeSelectorDialog.getAttribute('title') + cmsName);
-    }
+NodeSelector.onDialogAccept =function () {
+    /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept() invoked\n");
+
+    var nodeSelector = window.arguments[0];
+    nodeSelector.returnStatus = true;
+    return true;
 }
