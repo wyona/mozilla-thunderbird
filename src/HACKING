@@ -1,7 +1,7 @@
 Todo
 ====
  * cmsconnector.js:
-    * disable "Upload All to CMS..." if all attachments are
+    - disable "Upload All to CMS..." if all attachments are
       deleted/detached.
     * what happens if multiple attachments are selected (cmd-click)
     - check what happens if all attachments of a given message are

@@ -34,10 +34,12 @@
     <menuitem id="context-uploadAttachmentToCMS"
 	          insertafter="context-saveAttachment"
 	          oncommand="uploadAttachmentToCMS()"
-	          label="&uploadAttachementToCMSCmd.label;"/>
+	          label="&uploadAttachementToCMSCmd.label;"
+              disabled="true"/>
     <menuitem id="context-uploadAllAttachmentsToCMS"
 	          insertafter="context-saveAllAttachments"
 	          oncommand="uploadAllAttachmentsToCMS()"
-	          label="&uploadAllAttachementsToCMSCmd.label;"/>
+	          label="&uploadAllAttachementsToCMSCmd.label;"
+              disabled="true"/>
   </popup>
 </overlay>

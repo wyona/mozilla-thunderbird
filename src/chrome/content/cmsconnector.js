@@ -50,24 +50,40 @@ function initCMSConnector() {
  * <p>
  * This function relies on Mozilla internal implementation
  * details because of referencing the internal property
- * document.getElementById('attachmentList').selectedItems[].attachment.
+ * document.getElementById('attachmentList').selectedItems[].attachment
+ * as well as the internal global object property currentAttachments.
+ * <p>
+ * currentAttachments is defined in
+ * chrome://messenger/content/msgHdrViewOverlay.js.
  *
  * @return {Undefined}
  */
 function attachmentMenuListOnPopupShowingListener() {
     // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
-    var uploadMenu     = document.getElementById('context-uploadAttachmentToCMS');
-    var attachmentList = document.getElementById('attachmentList');
+    var uploadMenuitem    = document.getElementById('context-uploadAttachmentToCMS');
+    var uploadAllMenuitem = document.getElementById('context-uploadAllAttachmentsToCMS');
+    var attachmentList    = document.getElementById('attachmentList');
 
-    uploadMenu.setAttribute('disabled', 'true');
+    uploadMenuitem.setAttribute('disabled', 'true');
+    uploadAllMenuitem.setAttribute('disabled', 'true');
 
     /* Check if there are any attachments selected at all, and if
      * yes, check if there is at least one attachment in the selection
      * which is eligible for upload (i.e. not marked as deleted). */
     for (var i = 0; i < attachmentList.selectedItems.length; i++) {
         if (attachmentList.selectedItems[i].attachment.contentType != XMOZ_DELETED_MIME_TYPE) {
-            uploadMenu.removeAttribute('disabled');
+            uploadMenuitem.removeAttribute('disabled');
+            break;
+        }
+    }
+
+    /* Check if there is at least one attachment at all (i.e. not only
+     * among the selection), which is eligible for upload (i.e. not marked
+     * as deleted). */
+    for (var i = 0; i < currentAttachments.length; i++) {
+        if (currentAttachments[i].contentType != "text/x-moz-deleted") {
+            uploadAllMenuitem.removeAttribute('disabled');
             break;
         }
     }
