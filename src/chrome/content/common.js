@@ -56,9 +56,9 @@ Attachment.prototype = {
  * @return {CMSConnectorException}
  */
 function CMSConnectorException(aMessage) {
-    /* DEBUG */ dump("CMSConnector:common.js:__CMSConnectorException(" + aMessage + ") invoked.\n");
+    // /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorException(" + aMessage + ") invoked.\n");
     this.message = aMessage;
-    this.name    = "__CMSConnectorException";
+    this.name    = "CMSConnectorException";
 }
 
 CMSConnectorException.prototype.__proto__  = Error.prototype;
@@ -73,7 +73,7 @@ CMSConnectorException.prototype.__proto__  = Error.prototype;
  * @return {CMSConnectorExecutionException}
  */
 function CMSConnectorExecutionException(aMessage) {
-    /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorExecutionException(" + aMessage + ") invoked.\n");
+    // /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorExecutionException(" + aMessage + ") invoked.\n");
     // call super constructor
     this.__proto__.__proto__.constructor.call(this, aMessage);
     this.name = "CMSConnectorExecutionException";
@@ -91,7 +91,7 @@ CMSConnectorExecutionException.prototype.__proto__ = CMSConnectorException.proto
  * @return {CMSConnectorAbortException}
  */
 function CMSConnectorAbortException(aMessage) {
-    /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorAbortException(" + aMessage + ") invoked.\n");
+    // /* DEBUG */ dump("CMSConnector:common.js:CMSConnectorAbortException(" + aMessage + ") invoked.\n");
     // call super constructor
     this.__proto__.__proto__.constructor.call(this, aMessage);
     this.name = "CMSConnectorAbortException";

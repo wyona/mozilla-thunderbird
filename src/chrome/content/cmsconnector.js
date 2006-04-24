@@ -40,7 +40,7 @@ window.addEventListener('load', initCMSConnector, false);
  * @return {Undefined}
  */
 function initCMSConnector(aEvent) {
-    /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
+    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
 
     document.getElementById('attachmentListContext').addEventListener('popupshowing', attachmentMenuListOnPopupShowingListener, false);
 }
@@ -57,7 +57,7 @@ function initCMSConnector(aEvent) {
  * @return {Undefined}
  */
 function attachmentMenuListOnPopupShowingListener(aEvent) {
-    /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
+    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
     var uploadMenu     = document.getElementById('context-uploadAttachmentToCMS');
     var attachmentList = document.getElementById('attachmentList');
@@ -105,14 +105,14 @@ function uploadAttachmentToCMS() {
         // maybe we need the same hack as in http://lxr.mozilla.org/mozilla/source/mail/base/content/msgHdrViewOverlay.js#1115
         for (var i = 0; i < liveAttachments.length; i++) {
             try {
-                __uploadAttachment(NodeSelector.selectNode(), liveAttachments[i]);
+                __uploadAttachment(NodeSelector.selectNode("test"), liveAttachments[i]);
             } catch (exception) {
-                if (exception instanceof CMSConnectorExecutionException) {
-                    dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
-                    return;
-                }
-                else if (exception instanceof CMSConnectorAbortException) {
+                if (exception instanceof CMSConnectorAbortException) {
                     /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
+                    return;
+                } else {
+                    // not a normal abruption
+                    dump("CMSConnector:cmsconnector.js:uploadAttachmentToCMS: " + exception.toString() + "\n");
                     return;
                 }
             }
@@ -150,12 +150,12 @@ function uploadAllAttachmentsToCMS() {
         try {
             CMSNode = NodeSelector.selectNode();
         } catch (exception) {
-            if (exception instanceof CMSConnectorExecutionException) {
-                dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
-                return;
-            }
-            else if (exception instanceof CMSConnectorAbortException) {
+            if (exception instanceof CMSConnectorAbortException) {
                 /* DEBUG */ dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
+                return;
+            } else {
+                // not a normal abruption
+                dump("CMSConnector:cmsconnector.js:uploadAllAttachmentsToCMS: " + exception.toString() + "\n");
                 return;
             }
         }

@@ -25,9 +25,15 @@
 
 const NODESELECTORXUL = "chrome://cmsconnector/content/nodeselector.xul"
 
-var NodeSelector = {
-    sCMSURI: null,
+var sCMSURI       = null;
+var sSelectedNode = null;
+var sReturnStatus = null;
 
+function NodeSelector() {
+}
+
+NodeSelector = {
+    // public static methods
     /**
      * Selects a Node on the CMS.
      *
@@ -36,21 +42,46 @@ var NodeSelector = {
      * @throws {Error}     CMSConnectorAbortException
      * @throws {Error}     CMSConnectorExecutionException
      */
-    selectNode: function (aCMSURI) {
-        NodeSelector.sCMSURI = aCMSURI;
-
+    selectNode : function (aCMSURI) {
         /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode() invoked\n");
-
-        // open nodeselector.xul window, query for node, and return it
-        if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', ''))
-            throw new CMSConnectorExecutionException("Unable to open window " + NODESELECTORXUL);
-
-        /* DEBUG */ dump("CMSConnector:nodeselector.js:selectNode(): window sucessfuly opened\n");
-
-        // /* DEBUG */ throw new CMSConnectorAbortException("Selection aborted");
+        NodeSelector.sCMSURI = aCMSURI;
+        return NodeSelector.nodeSelectorDialog();
     },
 
-    nodeSelectorLoad: function (aEvent) {
+    nodeSelectorDialog : function () {
+        /* Open nodeselector.xul window. Note that the mode is
+         * modal, which means that the openDialog() call blocks.
+         * The results of the interactions with the dialog have
+         * to be stored in static variables via the various
+         * callback functions. */
+        if (!window.openDialog(NODESELECTORXUL, 'ui-nodeselector', 'modal'))
+            throw new CMSConnectorExecutionException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Unable to open window " + NODESELECTORXUL);
+
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): back from the dialog.\n");
+
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): sReturnStatus: \"" + sReturnStatus + "\"\n");
+
+        if (!sReturnStatus)
+            throw new CMSConnectorAbortException("CMSConnector:nodeselector.js:NodeSelector.nodeSelectorDialog(): Selection aborted");
+
+        return sSelectedNode;
+    },
+
+    onDialogCancel : function () {
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel() invoked\n");
+        sReturnStatus = false;
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogCancel(): return status set.\n");
+        return true;
+    },
+
+    onDialogAccept : function () {
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept() invoked\n");
+        self.sReturnStatus = true;
+        /* DEBUG */ dump("CMSConnector:nodeselector.js:NodeSelector.onDialogAccept(): return status set.\n");
+        return true;
+    },
+
+    nodeSelectorLoad : function (aEvent) {
         var cmsName            = null;
         var nodeSelectorDialog = null;
 

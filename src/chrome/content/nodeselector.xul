@@ -33,8 +33,8 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         onload="NodeSelector.nodeSelectorLoad();"
         width="426" height="300"
-        ondialogaccept="return selectOnOK();"
-        ondialogcancel="return onCancel();"
+        ondialogaccept="return NodeSelector.onDialogAccept();"
+        ondialogcancel="return NodeSelector.onDialogCancel();"
         persist="screenX screenY width height"
         title="&nodeselectorWindow.title;">
   <script type="application/x-javascript"
@@ -51,28 +51,28 @@
     <label value="&lookInMenuList.label;"
            control="lookInMenuList"
            accesskey="&lookInMenuList.accesskey;"/>
-    <menulist id="lookInMenuList" flex="1" oncommand="onDirectoryChanged(event.target);" crop="start">
+    <menulist id="lookInMenuList" flex="1" oncommand="NodeSelector.onDirectoryChanged(event.target);" crop="start">
       <menupopup id="lookInMenu"/>
     </menulist>
     <button id="dirUpButton"
             label="&dirUpButton.label;" tooltiptext="&dirUpButton.tooltiptext;"
-            oncommand="goUp();"/>
+            oncommand="NodeSelector.goUp();"/>
     <button id="dirHomeButton"
             label="&dirHomeButton.label;" tooltiptext="&dirHomeButton.tooltiptext;"
-            oncommand="goHome();"/>
+            oncommand="NodeSelector.goHome();"/>
     <button id="dirNewButton"
             label="&dirNewButton.label;" hidden="true" tooltiptext="&dirNewButton.tooltiptext;"
-            oncommand="newDir();"/>
+            oncommand="NodeSelector.newDir();"/>
   </hbox>
 
   <hbox flex="1">
     <deck id="errorShower" flex="1">
       <tree id="directoryTree" flex="1" class="focusring" seltype="single"
-            onclick="onClick(event);"
-            ondblclick="onDblClick(event);"
-            onkeypress="onKeypress(event);"
-            onfocus="onTreeFocus(event);"
-            onselect="onSelect(event);">
+            onclick="NodeSelector.onClick(event);"
+            ondblclick="NodeSelector.onDblClick(event);"
+            onkeypress="NodeSelector.onKeypress(event);"
+            onfocus="NodeSelector.onTreeFocus(event);"
+            onselect="NodeSelector.onSelect(event);">
         <treecols>
           <treecol id="FilenameColumn"
                    label="&name.label;" flex="1" class="sortDirectionIndicator"/>
@@ -100,17 +100,17 @@
                value="&textInput.label;" control="textInput" accesskey="&textInput.accesskey;"/>
         <textbox id="textInput"
                  flex="1" oninput="doEnabling()"
-                 onfocus="onTextFieldFocus();"/>
+                 onfocus="NodeSelector.onTextFieldFocus();"/>
       </row>
       <row id="filterBox" hidden="true" align="center">
         <label value="&filterMenuList.label;"  control="filterMenuList" accesskey="&filterMenuList.accesskey;"/>
         <menulist id="filterMenuList"
-                  flex="1" oncommand="onFilterChanged(event.target);"/>
+                  flex="1" oncommand="NodeSelector.onFilterChanged(event.target);"/>
       </row>
     </rows>
   </grid>
 
-  <hbox class="dialog-button-box" align="center">
+  <hbox class="dialog-button-box" align="center" pack="end">
     <button dlgtype="cancel" icon="cancel" class="dialog-button"/>
     <button dlgtype="accept" icon="accept" class="dialog-button"/>
   </hbox>
