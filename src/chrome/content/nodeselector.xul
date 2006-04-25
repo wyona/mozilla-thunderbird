@@ -33,6 +33,11 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         onload="NodeSelector.nodeSelectorLoad();"
         width="426" height="300"
+        buttons="accept,cancel"
+        buttonlabelaccept="&okButton.label;"
+        buttonlabelcancel="&cancelButton.label;"
+        buttonaccesskeyaccept="&okButton.accesskey;"
+        buttonaccesskeycancel="&cancelButton.accesskey;"
         ondialogaccept="return NodeSelector.onDialogAccept();"
         ondialogcancel="return NodeSelector.onDialogCancel();"
         persist="screenX screenY width height"
@@ -109,9 +114,4 @@
       </row>
     </rows>
   </grid>
-
-  <hbox class="dialog-button-box" align="center" pack="end">
-    <button dlgtype="cancel" icon="cancel" class="dialog-button"/>
-    <button dlgtype="accept" icon="accept" class="dialog-button"/>
-  </hbox>
 </dialog>

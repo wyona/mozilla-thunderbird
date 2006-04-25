@@ -3,7 +3,7 @@ Todo
  * cmsconnector.js:
     - disable "Upload All to CMS..." if all attachments are
       deleted/detached.
-    * what happens if multiple attachments are selected (cmd-click)
+    - what happens if multiple attachments are selected (cmd-click)
     - check what happens if all attachments of a given message are
       deleted (neither "Upload to CMS..." NOR "Upload All to CMS..."
       should be enabled). Compare with built-in "Save All". -> TB
@@ -17,6 +17,7 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
+    - remove ok/cancel buttons and rely solely on intrinsic dialog buttons
     * persist previous node selection.
     - enquire about the generality of platform specific file pickers
       (i.e. if it is possible to change the back-end and reuse the
