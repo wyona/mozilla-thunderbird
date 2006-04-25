@@ -20,6 +20,7 @@
 -->
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/skin/preferences/preferences.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://cmsconnector/locale/options.dtd">
 
@@ -34,10 +35,16 @@
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/options.js"/>
   <prefpane id="uiSavePane" label="&uiSavePane.label;" equalsize="always">
+
     <preferences>
-      <preference id="prefIntrospectionSrc" name="extensions.cmsconnector.introsprectionsrc" type="string"/>
-      <preference id="prefCMSURI" name="extensions.cmsconnector.cmsuri" type="string"/>
+      <preference id="prefIntrospectionSrc"
+                  name="extensions.cmsconnector.introsprectionsrc"
+                  type="string"/>
+      <preference id="prefCMSURI"
+                  name="extensions.cmsconnector.cmsuri"
+                  type="string"/>
     </preferences>
+
     <groupbox>
       <caption label="&uiCMSCaption.label;"/>
       <menulist id="uiCMSMenuList" flex="1" crop="end" accesskey="&uiCMSMenuList.accesskey;">
@@ -47,6 +54,7 @@
         <button id="uiAddCMSButton" label="&uiAddCMSButton.label;" oncommand="Options.addCMS()"/>
         <button id="uiRemoveCMSButton" label="&uiRemoveCMSButton.label;" oncommand="Options.removeCMS()"/>
       </hbox>
+
     </groupbox>
   </prefpane>
 </prefwindow>
