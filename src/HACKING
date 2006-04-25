@@ -26,7 +26,7 @@ Todo
     - refactor suite file dialog.
 
  * options.xul:
-    * use same scheme as in TB preferences dialog for grouping instead
+    - use same scheme as in TB preferences dialog for grouping instead
       of <groupbox>.
 
  * osr-101.js:

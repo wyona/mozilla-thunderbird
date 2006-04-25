@@ -40,9 +40,9 @@
       <preference/>
     </preferences>
 
-    <label control="uiCMSNameTextbox" value="&uiCMSNameTextbox.label;:"/>
+    <label control="uiCMSNameTextbox" value="&uiCMSNameTextbox.label;:" accesskey="&uiCMSNameTextbox.accesskey;"/>
     <textbox id="uiCMSNameTextbox"/>
-    <label control="uiCMSURITextbox" value="&uiCMSURITextbox.label;:"/>
+    <label control="uiCMSURITextbox" value="&uiCMSURITextbox.label;:"  accesskey="&uiCMSURITextbox.accesskey;"/>
     <textbox id="uiCMSURITextbox"/>
 
   </prefpane>
