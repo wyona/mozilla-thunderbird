@@ -23,7 +23,18 @@
  * This module contains code used in the preferences dialog.
  */
 
+const OPTIONS_ADDCMS = "chrome://cmsconnector/content/options-addcms.xul"
+
 var Options = {
+    addCMS: function () {
+        if (!document.documentElement.openSubDialog(OPTIONS_ADDCMS, "", null))
+            throw new CMSConnectorExecutionException("CMSConnector:options.js:Options.addCMS(): Unable to open window \"" + OPTIONS_ADDCMS + "\"");
+    },
+
+    removeCMS: function () {
+        return true;
+    },
+
     saySomething: function () {
         alert("Hello there!");
     }

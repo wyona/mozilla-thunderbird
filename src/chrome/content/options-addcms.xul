@@ -26,27 +26,21 @@
 <!-- For more information on prefwindow see http://www.xulplanet.com/references/elemref/ref_prefwindow.html
      and http://developer.mozilla.org/en/docs/Preferences_System:prefwindow. -->
 
-<prefwindow id="uiCMSConnectorPrefs"
+<prefwindow id="uiCMSConnectorPrefsAddCMS"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             persist="screenX screenY width height"
-            type="prefwindow"
-            title="&uiCMSConnectorPrefsPrefwindow.title;">
+            type="child"
+            title="&uiCMSConnectorPrefsPrefwindowAddCMS.title;"
+            dlgbuttons="accept,cancel">
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/options.js"/>
-  <prefpane id="uiSavePane" label="&uiSavePane.label;" equalsize="always">
+  <prefpane id="uiAddCMSPane" label="&uiAddCMSPane.label;" equalsize="always">
     <preferences>
-      <preference id="prefIntrospectionSrc" name="extensions.cmsconnector.introsprectionsrc" type="string"/>
-      <preference id="prefCMSURI" name="extensions.cmsconnector.cmsuri" type="string"/>
+      <preference/>
     </preferences>
-    <groupbox>
-      <caption label="&uiCMSCaption.label;"/>
-      <menulist id="uiCMSMenuList" flex="1" crop="end" accesskey="&uiCMSMenuList.accesskey;">
-        <menupopup id="uiCMSMenu"/>
-      </menulist>
-      <hbox align="center" equalsize="always">
-        <button id="uiAddCMSButton" label="&uiAddCMSButton.label;" oncommand="Options.addCMS()"/>
-        <button id="uiRemoveCMSButton" label="&uiRemoveCMSButton.label;" oncommand="Options.removeCMS()"/>
-      </hbox>
-    </groupbox>
+    <label control="uiCMSNameTextbox" value="&uiCMSNameTextbox.label;:"/>
+    <textbox id="uiCMSNameTextbox"/>
+    <label control="uiCMSURITextbox" value="&uiCMSURITextbox.label;:"/>
+    <textbox id="uiCMSURITextbox"/>
   </prefpane>
 </prefwindow>

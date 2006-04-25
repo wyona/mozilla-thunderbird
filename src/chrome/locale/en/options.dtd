@@ -1,9 +1,13 @@
-<!ENTITY uiCMSConnectorPrefsPrefwindow.title "Wyona CMSConnector Preferences">
+<!ENTITY uiCMSConnectorPrefsPrefwindow.title       "Wyona CMSConnector Preferences">
+<!ENTITY uiCMSConnectorPrefsPrefwindowAddCMS.title "Add New CMS">
 
-<!ENTITY uiSaveOptions.label "CMS">
+<!ENTITY uiSavePane.label "CMS">
 <!ENTITY uiCMSCaption.label "Default CMS">
 <!ENTITY uiAddCMSButton.label "Add CMS">
 <!ENTITY uiRemoveCMSButton.label "Remove CMS">
+<!ENTITY uiAddCMSPane.label "Remove CMS">
+<!ENTITY uiCMSNameTextbox.label "Name">
+<!ENTITY uiCMSURITextbox.label "Address">
 
 <!ENTITY uiCMSMenuList.accesskey "c">
 <!ENTITY uiAddCMSButton.accesskey "a">

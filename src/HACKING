@@ -39,6 +39,7 @@ Todo
     * refactor FF download progress dialog.
 
  * all files:
+    * add tooltips
     * add "tabindex" attributes.
     * add "accesskey" attributes.
     * add copyright notice (javadoc- or GPL-style?).
