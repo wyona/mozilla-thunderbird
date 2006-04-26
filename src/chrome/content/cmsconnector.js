@@ -41,7 +41,8 @@ window.addEventListener('load', initCMSConnector, false);
 function initCMSConnector() {
     // /* DEBUG */ dump("CMSConnector:cmsconnector.js:initCMSConnector() invoked\n");
 
-    document.getElementById('attachmentListContext').addEventListener('popupshowing', attachmentMenuListOnPopupShowingListener, false);
+    document.getElementById('attachmentListContext').addEventListener('popupshowing', attachmentListContextOnPopupShowingListener, false);
+    document.getElementById('attachmentMenuList').addEventListener('popupshowing', attachmentMenuListOnPopupShowingListener, false);
 }
 
 /**
@@ -58,8 +59,8 @@ function initCMSConnector() {
  *
  * @return {Undefined}
  */
-function attachmentMenuListOnPopupShowingListener() {
-    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
+function attachmentListContextOnPopupShowingListener() {
+    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentListContextOnPopupShowingListener() invoked\n");
 
     var uploadMenuitem    = document.getElementById('context-uploadAttachmentToCMS');
     var uploadAllMenuitem = document.getElementById('context-uploadAllAttachmentsToCMS');
@@ -77,6 +78,39 @@ function attachmentMenuListOnPopupShowingListener() {
             break;
         }
     }
+
+    /* Check if there is at least one attachment at all (i.e. not only
+     * among the selection), which is eligible for upload (i.e. not marked
+     * as deleted). */
+    for (var i = 0; i < currentAttachments.length; i++) {
+        if (currentAttachments[i].contentType != "text/x-moz-deleted") {
+            uploadAllMenuitem.removeAttribute('disabled');
+            break;
+        }
+    }
+}
+
+/**
+ * Event handler for updating the File -> Attachments menu
+ * depending on the state of the selected attachments.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal property
+ * document.getElementById('attachmentList').selectedItems[].attachment
+ * as well as the internal global object property currentAttachments.
+ * <p>
+ * currentAttachments is defined in
+ * chrome://messenger/content/msgHdrViewOverlay.js.
+ *
+ * @return {Undefined}
+ */
+function attachmentMenuListOnPopupShowingListener() {
+    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
+
+    var uploadAllMenuitem = document.getElementById('file-uploadAllAttachmentsToCMS');
+    var attachmentList    = document.getElementById('attachmentList');
+
+    uploadAllMenuitem.setAttribute('disabled', 'true');
 
     /* Check if there is at least one attachment at all (i.e. not only
      * among the selection), which is eligible for upload (i.e. not marked

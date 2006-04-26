@@ -19,27 +19,45 @@
 # ***** END LICENSE BLOCK *****
 -->
 
+<!-- Overlays chrome://messenger/content/msgHdrViewOverlay.xul -->
+
 <!DOCTYPE overlay SYSTEM "chrome://cmsconnector/locale/cmsconnector.dtd">
 
 <overlay id="cmsconnector"
-	     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/x-javascript"
-	      src="chrome://cmsconnector/content/common.js"/>
+          src="chrome://cmsconnector/content/common.js"/>
   <script type="application/x-javascript"
-	      src="chrome://cmsconnector/content/cmsconnector.js"/>
+          src="chrome://cmsconnector/content/cmsconnector.js"/>
   <script type="application/x-javascript"
-	      src="chrome://cmsconnector/content/nodeselector.js"/>
+          src="chrome://cmsconnector/content/nodeselector.js"/>
 
+  <!-- Overlay the context menu which opens when right-clicking an attachment or
+       right-clicking somewehere in the attachment area (without selecting an
+       attachment in particular. -->
   <popup id="attachmentListContext">
     <menuitem id="context-uploadAttachmentToCMS"
-	          insertafter="context-saveAttachment"
-	          oncommand="uploadAttachmentToCMS()"
-	          label="&uploadAttachementToCMSCmd.label;"
+              insertafter="context-saveAttachment"
+              oncommand="uploadAttachmentToCMS()"
+              label="&uploadAttachmentToCMSCmd.label;"
+              accesskey="&uploadAttachmentToCMSCmd.accesskey;"
               disabled="true"/>
     <menuitem id="context-uploadAllAttachmentsToCMS"
-	          insertafter="context-saveAllAttachments"
-	          oncommand="uploadAllAttachmentsToCMS()"
-	          label="&uploadAllAttachementsToCMSCmd.label;"
+              insertafter="context-saveAllAttachments"
+              oncommand="uploadAllAttachmentsToCMS()"
+              label="&uploadAllAttachmentsToCMSCmd.label;"
+              accesskey="&uploadAllAttachmentsToCMSCmd.accesskey;"
               disabled="true"/>
   </popup>
+
+  <!-- Overlay the sub menu of the File -> Attachments menu in the menu bar. -->
+  <popup id="attachmentMenuList">
+    <menuitem id="file-uploadAllAttachmentsToCMS"
+              insertafter="file-saveAllAttachments"
+              oncommand="uploadAllAttachmentsToCMS()"
+              label="&uploadAllAttachmentsToCMSCmd.label;"
+              accesskey="&uploadAllAttachmentsToCMSCmd.accesskey;"
+              disabled="true"/>
+  </popup>
+
 </overlay>

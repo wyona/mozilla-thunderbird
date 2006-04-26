@@ -1,2 +1,4 @@
-<!ENTITY uploadAttachementToCMSCmd.label     "Upload to CMS...">
-<!ENTITY uploadAllAttachementsToCMSCmd.label "Upload All to CMS...">
+<!ENTITY uploadAttachmentToCMSCmd.label      "Upload to CMS...">
+<!ENTITY uploadAttachmentToCMSCmd.accesskey  "C">
+<!ENTITY uploadAllAttachmentsToCMSCmd.label     "Upload All to CMS...">
+<!ENTITY uploadAllAttachmentsToCMSCmd.accesskey "M">
