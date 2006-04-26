@@ -5,7 +5,7 @@
 <!ENTITY uiAddCMSButton.accesskey                  "A">
 <!ENTITY uiAddCMSPane.label                        "Remove CMS">
 <!ENTITY uiCMSCaption.label                        "Default CMS">
-<!ENTITY uiCMSMenuList.accesskey                   "c">
+<!ENTITY uiCMSMenulist.accesskey                   "c">
 <!ENTITY uiCMSNameTextbox.label                    "Name">
 <!ENTITY uiCMSNameTextbox.accesskey                "N">
 <!ENTITY uiCMSURITextbox.label                     "Address">

@@ -26,6 +26,27 @@
 const OPTIONS_ADDCMS = "chrome://cmsconnector/content/options-addcms.xul"
 
 var Options = {
+    uiSavePaneOnPaneLoadHandler: function () {
+        var uiCMSConnectorPrefsStringbundle = null;
+        var uiCMSMenulist                   = null;
+
+        /* DEBUG */ dump("CMSConnector:options.js:uiSavePaneOnPaneLoadHander() invoked\n");
+
+        // load list of CMS from preferences
+
+        // if list.length == 0, show default menulistitem
+        uiCMSConnectorPrefsStringbundle = document.getElementById('uiCMSConnectorPrefsStringbundle');
+        uiCMSMenulist                   = document.getElementById('uiCMSMenulist');
+
+        // add default menulistitem
+        uiCMSMenulist.appendItem(uiCMSConnectorPrefsStringbundle.getString('uiCMSPlaceholderMenuitem.label'), 'uiCMSPlaceholderMenuitem', null);
+
+        // select it
+        uiCMSMenulist.selectedIndex = 0;
+
+        /* DEBUG */ dump("CMSConnector:options.js:uiSavePaneOnPaneLoadHander() left\n");
+    },
+
     addCMS: function () {
         if (!document.documentElement.openSubDialog(OPTIONS_ADDCMS, "", null))
             throw new CMSConnectorExecutionException("CMSConnector:options.js:Options.addCMS(): Unable to open window \"" + OPTIONS_ADDCMS + "\"");

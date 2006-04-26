@@ -32,9 +32,13 @@
             persist="screenX screenY width height"
             type="prefwindow"
             title="&uiCMSConnectorPrefsPrefwindow.title;">
+  <stringbundle id="uiCMSConnectorPrefsStringbundle" src="chrome://cmsconnector/locale/options.properties"/>
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/options.js"/>
-  <prefpane id="uiSavePane" label="&uiSavePane.label;" equalsize="always">
+  <prefpane id="uiSavePane"
+            label="&uiSavePane.label;"
+            equalsize="always"
+            onpaneload="Options.uiSavePaneOnPaneLoadHandler()">
 
     <preferences>
       <preference id="prefIntrospectionSrc"
@@ -47,14 +51,15 @@
 
     <groupbox>
       <caption label="&uiCMSCaption.label;"/>
-      <menulist id="uiCMSMenuList" flex="1" crop="end" accesskey="&uiCMSMenuList.accesskey;">
-        <menupopup id="uiCMSMenu"/>
+      <menulist id="uiCMSMenulist" flex="1" crop="end" accesskey="&uiCMSMenulist.accesskey;" disabled="true">
+        <menupopup id="uiCMSMenupopup">
+        </menupopup>
       </menulist>
       <hbox align="center" equalsize="always">
         <button id="uiAddCMSButton" label="&uiAddCMSButton.label;" oncommand="Options.addCMS()"/>
         <button id="uiRemoveCMSButton" label="&uiRemoveCMSButton.label;" oncommand="Options.removeCMS()"/>
       </hbox>
-
     </groupbox>
+
   </prefpane>
 </prefwindow>
