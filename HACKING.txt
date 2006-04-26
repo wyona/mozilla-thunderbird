@@ -1,6 +1,7 @@
 Todo
 ====
  * cmsconnector.js:
+    * factor out the checking of all attachments for elegibility loop.
     - disable "Upload All to CMS..." if all attachments are
       deleted/detached.
     - what happens if multiple attachments are selected (cmd-click)
@@ -17,7 +18,12 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
-    - remove ok/cancel buttons and rely solely on intrinsic dialog buttons
+    * add "Upload to CMS..." menu entry to File --> Attachments
+      attachment sub menu.
+    - add "Upload All to CMS..." menu entry to File --> Attachments
+      menu.
+    - remove ok/cancel buttons and rely solely on intrinsic dialog
+      buttons
     * persist previous node selection.
     - enquire about the generality of platform specific file pickers
       (i.e. if it is possible to change the back-end and reuse the
@@ -26,8 +32,17 @@ Todo
     - refactor suite file dialog.
 
  * options.xul:
+    - add default "Add CMS first..." string to CMS menulist and
+      disable it in order to render menulist widget correctly on gtk.
     - use same scheme as in TB preferences dialog for grouping instead
       of <groupbox>.
+
+ * options-addcms.js:
+    * enter full path to introspection URL.
+    * if no file specified, add standard path.
+
+ * options.js:
+    * implement preferences infrastructure.
 
  * osr-101.js:
     * push completion of specification.
@@ -37,6 +52,9 @@ Todo
 
  * progressreporter.xul:
     * refactor FF download progress dialog.
+
+ * install.rdf:
+    * branding.
 
  * all files:
     * add tooltips
