@@ -175,7 +175,7 @@ function attachmentMenuListOnPopupShowingListener() {
 
                             // determine elegibility for upload
                             if (prevDOMElem.attachment.contentType != 'text/x-moz-deleted') {
-                                newMenuitem.setAttribute('attachment', cloneAttachment(prevDOMElem.attachment));
+                                newMenuitem.attachment = cloneAttachment(prevDOMElem.attachment);
                                 newMenuitem.setAttribute('oncommand', 'uploadAttachmentToCMS(this.attachment)');
                                 newMenuitem.setAttribute('disabled', false);
                             }
