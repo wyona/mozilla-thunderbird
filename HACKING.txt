@@ -1,7 +1,7 @@
 Todo
 ====
  * cmsconnector.js:
-    * factor out the checking of all attachments for elegibility loop.
+    - factor out the checking of all attachments for elegibility loop.
     - disable "Upload All to CMS..." if all attachments are
       deleted/detached.
     - what happens if multiple attachments are selected (cmd-click)

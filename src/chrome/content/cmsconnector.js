@@ -51,11 +51,7 @@ function initCMSConnector() {
  * <p>
  * This function relies on Mozilla internal implementation
  * details because of referencing the internal property
- * document.getElementById('attachmentList').selectedItems[].attachment
- * as well as the internal global object property currentAttachments.
- * <p>
- * currentAttachments is defined in
- * chrome://messenger/content/msgHdrViewOverlay.js.
+ * document.getElementById('attachmentList').selectedItems[].attachment.
  *
  * @return {Undefined}
  */
@@ -79,28 +75,13 @@ function attachmentListContextOnPopupShowingListener() {
         }
     }
 
-    /* Check if there is at least one attachment at all (i.e. not only
-     * among the selection), which is eligible for upload (i.e. not marked
-     * as deleted). */
-    for (var i = 0; i < currentAttachments.length; i++) {
-        if (currentAttachments[i].contentType != "text/x-moz-deleted") {
-            uploadAllMenuitem.removeAttribute('disabled');
-            break;
-        }
-    }
+    if (existsEligibleAttachment())
+        uploadAllMenuitem.removeAttribute('disabled');
 }
 
 /**
  * Event handler for updating the File -> Attachments menu
  * depending on the state of the selected attachments.
- * <p>
- * This function relies on Mozilla internal implementation
- * details because of referencing the internal property
- * document.getElementById('attachmentList').selectedItems[].attachment
- * as well as the internal global object property currentAttachments.
- * <p>
- * currentAttachments is defined in
- * chrome://messenger/content/msgHdrViewOverlay.js.
  *
  * @return {Undefined}
  */
@@ -108,19 +89,34 @@ function attachmentMenuListOnPopupShowingListener() {
     // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
     var uploadAllMenuitem = document.getElementById('file-uploadAllAttachmentsToCMS');
-    var attachmentList    = document.getElementById('attachmentList');
 
     uploadAllMenuitem.setAttribute('disabled', 'true');
 
+    if (existsEligibleAttachment())
+        uploadAllMenuitem.removeAttribute('disabled');
+}
+
+/**
+ * Test if at least one attachment is eligible for upload.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of referencing the internal global
+ * object property currentAttachments.
+ * <p>
+ * currentAttachments is defined in
+ * chrome://messenger/content/msgHdrViewOverlay.js.
+ *
+ * @return {Boolean} returns true if at least one eligible attachment exists
+ */
+function existsEligibleAttachment() {
     /* Check if there is at least one attachment at all (i.e. not only
      * among the selection), which is eligible for upload (i.e. not marked
      * as deleted). */
     for (var i = 0; i < currentAttachments.length; i++) {
-        if (currentAttachments[i].contentType != "text/x-moz-deleted") {
-            uploadAllMenuitem.removeAttribute('disabled');
-            break;
-        }
+        if (currentAttachments[i].contentType != "text/x-moz-deleted")
+            return true;
     }
+    return false;
 }
 
 /**
