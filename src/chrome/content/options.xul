@@ -32,7 +32,9 @@
             persist="screenX screenY width height"
             type="prefwindow"
             title="&uiCMSConnectorPrefsPrefwindow.title;">
+
   <stringbundle id="uiCMSConnectorPrefsStringbundle" src="chrome://cmsconnector/locale/options.properties"/>
+
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/options.js"/>
   <prefpane id="uiSavePane"

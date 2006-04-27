@@ -25,6 +25,9 @@
 
 <overlay id="cmsconnector"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <stringbundle id="uiCMSConnectorStringbundle" src="chrome://cmsconnector/locale/cmsconnector.properties"/>
+
   <script type="application/x-javascript"
           src="chrome://cmsconnector/content/common.js"/>
   <script type="application/x-javascript"

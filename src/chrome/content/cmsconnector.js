@@ -28,6 +28,9 @@
  */
 
 const XMOZ_DELETED_MIME_TYPE = "text/x-moz-deleted"
+const XUL_NS                 = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+
+var menuAlreadySetup = false;
 
 /* Registers our init code to be run (see
  * http://developer.mozilla.org/en/docs/Extension_FAQ#Why_doesn.27t_my_script_run_properly.3F) */
@@ -48,6 +51,9 @@ function initCMSConnector() {
 /**
  * Event handler for updating the context menu
  * depending on the state of the selected attachments.
+ * <p>
+ * Note that this handler is called iff the message has
+ * at least one attachment associated.
  * <p>
  * This function relies on Mozilla internal implementation
  * details because of referencing the internal property
@@ -82,18 +88,120 @@ function attachmentListContextOnPopupShowingListener() {
 /**
  * Event handler for updating the File -> Attachments menu
  * depending on the state of the selected attachments.
+ * <p>
+ * Note that this handler is called iff the message has
+ * at least one attachment associated.
+ * <p>
+ * This function relies on Mozilla internal implementation
+ * details because of calling the internal function
+ * cloneAttachment().
  *
  * @return {Undefined}
  */
 function attachmentMenuListOnPopupShowingListener() {
-    // /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
+    /* DEBUG */ dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener() invoked\n");
 
-    var uploadAllMenuitem = document.getElementById('file-uploadAllAttachmentsToCMS');
+    var attachmentMenulist = null;
+    var uploadAllMenuitem  = null;
+    var domTreeWalker      = null;
+    var domElem            = null;
+    var menuElem           = null;
+    var menupopupElem      = null;
+    var prevDOMElem        = null;
+    var newMenuitem        = null;
+    var menusepCounter;
 
-    uploadAllMenuitem.setAttribute('disabled', 'true');
+    if (!menuAlreadySetup) {
+        // get File --> Attachments sub menu (id "attachmentMenuList")
+        attachmentMenulist = document.getElementById('attachmentMenuList');
 
-    if (existsEligibleAttachment())
-        uploadAllMenuitem.removeAttribute('disabled');
+        /* The code in the following try ... catch block is quite delicate
+         * because the File --> Attachments sub menu is generated dynamically
+         * by mail/mailnews. I.e., there are no id attributes available which
+         * we could use to find our way around the tree. Furthermore, some
+         * important data like the attachment itself is only available
+         * indirectly. If some other extension hooks itself in in this menu
+         * as well, we might not be able to get the correct data out of it.
+         * Therefore, we better play save, and if anything should fail, we
+         * simply refrain from adding the "Save to CMS..." menu item. */
+        try {
+            /* Iterate over all attachment menu items in the attachments sub
+             * menu of the File -> Attachments menu. The menu looks like this:
+             *   _________________________
+             *   | File               -> |
+             *   | Open Saved Message    |______________________________
+             *   | Attachments        ->   1 foo      ->   Open        |
+             *   | Close                 | 2 bar      -> | ----------- |
+             *   | --------------------- | ------------- | Save As...  |
+             *   | Save As            -> | Save All...   | ----------- |
+             *   | ...                   | Detach All... | Detach...   |
+             *   | ...                   | Delete All... | Delete      |
+             *   | ...                   |---------------|-------------|
+             *
+             * The "Upload to CMS..." menu item has to get added to the
+             * sub menu of "1 foo" and "2 bar". These menus though
+             * are created dynamically, and do not have an id to hook
+             * in. */
+
+            /* Iterate over the menu items starting from the first entry, until
+             * we hit the first separator. */
+            domTreeWalker = document.createTreeWalker(attachmentMenulist, NodeFilter.SHOW_ELEMENT, null, false);
+
+            domElem = domTreeWalker.currentNode;
+
+            for (domElem = domTreeWalker.firstChild(); domElem != null && domElem.nodeName != 'menuseparator'; domElem = domTreeWalker.nextSibling()) {
+                /* Save current menu node to later proceed walking
+                 * from this point in the treee. */
+                menuElem = domElem;
+
+                // goto child of the menu element which is the menupopup
+                menupopupElem = domTreeWalker.firstChild();
+
+                /* Iterate over the menupopup children until we hit the
+                 * second menuseparator (i.e. the first element after the
+                 * "Save As..." menuitem. */
+                for (domElem = domTreeWalker.firstChild(), prevDOMElem = null, menusepCounter = 0; domElem != null; domElem = domTreeWalker.nextSibling()) {
+                    if ((domElem.nodeName == 'menuseparator' ? ++menusepCounter : menusepCounter) == 2) {
+                        /* Check if previous menu item carries the attachment. If
+                         * not, either something went wrong in mail/mailnews during
+                         * menu creation, or some other extension hooked in in the
+                         * same menu and interferes with us. In this case, we just
+                         * gracefully back off. */
+                        if (prevDOMElem && prevDOMElem.attachment) {
+                            // build new "Upload to CMS..." menuitem
+                            newMenuitem = document.getElementById('context-uploadAttachmentToCMS').cloneNode(true);
+                            newMenuitem.removeAttribute('id');
+                            newMenuitem.removeAttribute('insertafter');
+
+                            // determine elegibility for upload
+                            if (prevDOMElem.attachment.contentType != 'text/x-moz-deleted') {
+                                newMenuitem.setAttribute('attachment', cloneAttachment(prevDOMElem.attachment));
+                                newMenuitem.setAttribute('oncommand', 'uploadAttachmentToCMS(this.attachment)');
+                                newMenuitem.setAttribute('disabled', false);
+                            }
+
+                            // insert newly built menuitem before the second menuseparator
+                            menupopupElem.insertBefore(newMenuitem, domElem);
+                        }
+                        break;
+                    }
+                    prevDOMElem = domElem;
+                }
+                domTreeWalker.currentNode = menuElem;
+            }
+        } catch (exception) {
+            dump("CMSConnector:cmsconnector.js:attachmentMenuListOnPopupShowingListener: " + exception.toString() + "\n");
+        }
+
+        uploadAllMenuitem = document.getElementById('file-uploadAllAttachmentsToCMS');
+
+        uploadAllMenuitem.setAttribute('disabled', 'true');
+
+        if (existsEligibleAttachment())
+            uploadAllMenuitem.removeAttribute('disabled');
+
+        menuAlreadySetup = true;
+    }
 }
 
 /**
@@ -125,6 +233,10 @@ function existsEligibleAttachment() {
  * message while sequentially asking for the target node for every
  * attachment.
  * <p>
+ * Note that the aAttachment parameter is optional. If provided, this
+ * attachment will be uploaded. If omitted, the current selection
+ * is upload.
+ * <p>
  * Note that there must at least one attachment be selected which
  * is not marked as deleted.
  * <p>
@@ -132,17 +244,25 @@ function existsEligibleAttachment() {
  * details because of referencing the internal property
  * document.getElementById('attachmentList').selectedItems[].attachment.
  *
+ * @param  {Object}    the attachment to upload (if omitted, retrieve from selection)
  * @return {Undefined}
  */
-function uploadAttachmentToCMS() {
+function uploadAttachmentToCMS(aAttachment) {
     var liveAttachments = new Array();
+    var attachmentList  = null;
 
-    // get selected attachments
-    var attachmentList = document.getElementById('attachmentList');
+    if (!aAttachment) {
+        // get selected attachments
+        attachmentList = document.getElementById('attachmentList');
 
-    // filter out deleted attachments
-    for (var i = 0; i < attachmentList.selectedItems.length; i++)
-        __filterDeletedAttachments(liveAttachments, attachmentList.selectedItems[i].attachment);
+
+        // filter out deleted attachments
+        for (var i = 0; i < attachmentList.selectedItems.length; i++)
+            __filterDeletedAttachments(liveAttachments, attachmentList.selectedItems[i].attachment);
+    } else {
+        // add attachment which was passed in.
+        liveAttachments.push(__createAttachment(aAttachment));
+    }
 
     // check if there are any live attachments left to process
     if (liveAttachments.length != 0) {

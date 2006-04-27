@@ -1,6 +1,10 @@
 Todo
 ====
  * cmsconnector.js:
+    - add "Upload to CMS..." menu entry to File --> Attachments
+      attachment sub menu.
+    - add "Upload All to CMS..." menu entry to File --> Attachments
+      menu.
     - factor out the checking of all attachments for elegibility loop.
     - disable "Upload All to CMS..." if all attachments are
       deleted/detached.
@@ -18,10 +22,6 @@ Todo
     - make exceptions inherit from built-in object Error.
 
  * nodeselector.xul:
-    * add "Upload to CMS..." menu entry to File --> Attachments
-      attachment sub menu.
-    - add "Upload All to CMS..." menu entry to File --> Attachments
-      menu.
     - remove ok/cancel buttons and rely solely on intrinsic dialog
       buttons
     * persist previous node selection.
