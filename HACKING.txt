@@ -60,7 +60,7 @@ Todo
     * add tooltips
     * add "tabindex" attributes.
     * add "accesskey" attributes.
-    * add copyright notice (javadoc- or GPL-style?).
+    - add copyright notice (javadoc- or GPL-style?).
 
  * testing:
     * test with Mozilla Suite 1.7.*.
